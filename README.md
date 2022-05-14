@@ -1,2 +1,2 @@
-# ProjectB
+# Project B
 Platformer game
