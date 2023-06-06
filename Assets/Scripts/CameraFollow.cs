@@ -6,8 +6,12 @@ public class CameraFollow : MonoBehaviour {
 
   [SerializeField] Transform player;
 
+  public float followSpeed = 1.5f;
+
   // Update is called once per frame
   void Update() {
-    transform.position = new Vector3(player.transform.position.x, player.transform.position.y, transform.position.z);
+    // slerp x
+    Vector3 targetPos = new Vector3(player.position.x, player.position.y, transform.position.z);
+    transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * followSpeed);
   }
 }
