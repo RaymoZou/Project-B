@@ -9,12 +9,14 @@ public class PlayerMovement : MonoBehaviour {
   SpriteRenderer spriteRenderer;
 
   [SerializeField] float moveSpeed = 3;
-  [SerializeField] float jumpForce = 5;
+  [SerializeField] float jumpForce = 4;
   [SerializeField] GameObject groundCheck;
 
 
-  float xInput;
-  bool isJump = false;
+  private float xInput;
+  public bool isJumping = false;
+  private float jumpTime = 0.35f;
+  public float currJumpTimer;
 
   private void Awake() {
     rb = GetComponent<Rigidbody2D>();
@@ -24,15 +26,16 @@ public class PlayerMovement : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
-
   }
 
   // Update is called once per frame
   void Update() {
     xInput = Input.GetAxisRaw("Horizontal");
-    if (Input.GetButtonDown("Jump") && isGrounded()) {
-      isJump = true;
-      myAnimator.SetBool("isJump", isJump);
+    // have to be grounded and not already in a jump
+    if (Input.GetButtonDown("Jump") && isGrounded() && !isJumping) {
+      isJumping = true;
+      currJumpTimer = jumpTime;
+      myAnimator.SetBool("isJump", isJumping);
     }
     if (xInput != 0) {
       myAnimator.SetBool("isWalking", true);
@@ -46,10 +49,17 @@ public class PlayerMovement : MonoBehaviour {
   }
 
   private void FixedUpdate() {
-    float yVelocity = rb.velocity.y;
-    if (isJump) yVelocity += jumpForce;
-    rb.velocity = new Vector2(xInput * moveSpeed, yVelocity);
-    isJump = false;
+    if (isJumping) {
+      Debug.Log("jumping is true");
+      if (Input.GetButton("Jump") && currJumpTimer > 0) {
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        currJumpTimer -= Time.deltaTime;
+      } else {
+        Debug.Log("testing");
+        isJumping = false;
+      }
+    }
+    rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
     myAnimator.SetBool("isJump", !isGrounded());
   }
 
