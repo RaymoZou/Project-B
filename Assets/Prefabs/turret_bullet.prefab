@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -3520722202725342613}
   - component: {fileID: -6441043651913571201}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: turret_bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 181eea7778f0e5a4cbe264808c782688, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ad9a2250674a1f84d9e3b6bb740462b2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
