@@ -50,12 +50,10 @@ public class PlayerMovement : MonoBehaviour {
 
   private void FixedUpdate() {
     if (isJumping) {
-      Debug.Log("jumping is true");
       if (Input.GetButton("Jump") && currJumpTimer > 0) {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         currJumpTimer -= Time.deltaTime;
       } else {
-        Debug.Log("testing");
         isJumping = false;
       }
     }
