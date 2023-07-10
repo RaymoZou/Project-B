@@ -3,28 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
-{
-    public Slider healthBar;
-    public Health playerHealth;
+public class HealthBar : MonoBehaviour {
+  public Slider healthBar;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
-        healthBar = GetComponent<Slider>();
-        healthBar.maxValue = playerHealth.maxHealth;
-        healthBar.value = playerHealth.maxHealth;
-    }
+  private void Awake() {
+    Health.OnHealthChanged += SetHealth;
+  }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  private void OnDestroy() {
+    Health.OnHealthChanged -= SetHealth;
+  }
 
-    public void SetHealth(int hp)
-    {
-        healthBar.value = hp;
-    }
+  // Start is called before the first frame update
+  void Start() {
+    healthBar = GetComponent<Slider>();
+    healthBar.maxValue = Health.defaultHealth;
+    healthBar.value = Health.defaultHealth;
+  }
+
+  public void SetHealth(int hp) {
+    healthBar.value = hp;
+  }
 }
