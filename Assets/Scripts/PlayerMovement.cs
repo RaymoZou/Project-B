@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour {
   SpriteRenderer spriteRenderer;
 
   [SerializeField] float moveSpeed = 3;
-  [SerializeField] float jumpForce = 3;
+  [SerializeField] float jumpForce = 4;
   [SerializeField] float jumpTime = 0.25f;
   [SerializeField] GameObject groundCheck;
 
