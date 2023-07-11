@@ -7,6 +7,7 @@ public class HealthBar : MonoBehaviour {
   public Slider healthBar;
 
   private void Awake() {
+    healthBar = GetComponent<Slider>();
     Health.OnHealthChanged += SetHealth;
   }
 
@@ -16,7 +17,6 @@ public class HealthBar : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
-    healthBar = GetComponent<Slider>();
     healthBar.maxValue = Health.defaultHealth;
     healthBar.value = Health.defaultHealth;
   }

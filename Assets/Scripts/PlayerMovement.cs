@@ -9,13 +9,13 @@ public class PlayerMovement : MonoBehaviour {
   SpriteRenderer spriteRenderer;
 
   [SerializeField] float moveSpeed = 3;
-  [SerializeField] float jumpForce = 4;
+  [SerializeField] float jumpForce = 3;
+  [SerializeField] float jumpTime = 0.25f;
   [SerializeField] GameObject groundCheck;
 
 
   private float xInput;
   public bool isJumping = false;
-  private float jumpTime = 0.35f;
   public float currJumpTimer;
 
   private void Awake() {
