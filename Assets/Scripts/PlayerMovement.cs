@@ -8,15 +8,16 @@ public class PlayerMovement : MonoBehaviour {
   Animator myAnimator;
   SpriteRenderer spriteRenderer;
 
+  [SerializeField] GameObject groundCheck;
+
+  [Header("Movement Settings")]
   [SerializeField] float moveSpeed = 3;
   [SerializeField] float jumpForce = 4;
   [SerializeField] float jumpTime = 0.25f;
-  [SerializeField] GameObject groundCheck;
-
 
   private float xInput;
-  public bool isJumping = false;
-  public float currJumpTimer;
+  private bool isJumping = false;
+  private float currJumpTimer;
 
   private void Awake() {
     rb = GetComponent<Rigidbody2D>();
@@ -27,35 +28,33 @@ public class PlayerMovement : MonoBehaviour {
   // Update is called once per frame
   void Update() {
     xInput = Input.GetAxisRaw("Horizontal");
-    // have to be grounded and not already in a jump
     if (Input.GetButtonDown("Jump") && isGrounded() && !isJumping) {
       isJumping = true;
       currJumpTimer = jumpTime;
-      myAnimator.SetBool("isJump", isJumping);
-    }
-    if (xInput != 0) {
-      myAnimator.SetBool("isWalking", true);
-    } else {
-      myAnimator.SetBool("isWalking", false);
     }
 
-    // set sprite flip orientation
+    #region Animation / Visuals
+    myAnimator.SetBool("isJump", !isGrounded());
+    myAnimator.SetBool("isWalking", xInput != 0 ? true : false);
     if (xInput == 1) spriteRenderer.flipX = false;
     if (xInput == -1) spriteRenderer.flipX = true;
+    #endregion
   }
 
-  // called every 0.02 seconds by default
+  // FixedUpdate is called once every 0.02 seconds or 50 times/second by default
   private void FixedUpdate() {
+    float yVelocity = rb.velocity.y;
+    float xVelocity = xInput * moveSpeed;
     if (isJumping) {
       if (Input.GetButton("Jump") && currJumpTimer > 0) {
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        yVelocity = jumpForce;
         currJumpTimer -= Time.deltaTime;
       } else {
         isJumping = false;
       }
     }
-    rb.velocity = new Vector2(xInput * moveSpeed, rb.velocity.y);
-    myAnimator.SetBool("isJump", !isGrounded());
+    Vector2 movement = new Vector2(xVelocity, yVelocity);
+    rb.velocity = movement;
   }
 
   private bool isGrounded() {
