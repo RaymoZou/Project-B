@@ -24,10 +24,6 @@ public class PlayerMovement : MonoBehaviour {
     myAnimator = GetComponent<Animator>();
   }
 
-  // Start is called before the first frame update
-  void Start() {
-  }
-
   // Update is called once per frame
   void Update() {
     xInput = Input.GetAxisRaw("Horizontal");
@@ -48,6 +44,7 @@ public class PlayerMovement : MonoBehaviour {
     if (xInput == -1) spriteRenderer.flipX = true;
   }
 
+  // called every 0.02 seconds by default
   private void FixedUpdate() {
     if (isJumping) {
       if (Input.GetButton("Jump") && currJumpTimer > 0) {
