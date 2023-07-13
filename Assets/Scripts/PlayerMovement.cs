@@ -11,9 +11,15 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] GameObject groundCheck;
 
   [Header("Movement Settings")]
-  [SerializeField] float moveSpeed = 3;
+  [SerializeField] float baseMoveSpeed = 1;
+  [SerializeField] float topSpeed = 5;
+  [SerializeField] float accelerationRate = 15;
+  [SerializeField] float deaccelerationRate = 4;
   [SerializeField] float jumpForce = 4;
   [SerializeField] float jumpTime = 0.25f;
+  [SerializeField] float gravityMultiplier = 1.5f;
+  [SerializeField] float gravityScale = 1f;
+  [SerializeField] float airBourneAccelerationRate = 5f;
 
   private float xInput;
   private bool isJumping = false;
@@ -29,8 +35,7 @@ public class PlayerMovement : MonoBehaviour {
   void Update() {
     xInput = Input.GetAxisRaw("Horizontal");
     if (Input.GetButtonDown("Jump") && isGrounded() && !isJumping) {
-      isJumping = true;
-      currJumpTimer = jumpTime;
+      Jump();
     }
 
     #region Animation / Visuals
@@ -41,20 +46,45 @@ public class PlayerMovement : MonoBehaviour {
     #endregion
   }
 
+  private void Jump() {
+    isJumping = true;
+    currJumpTimer = jumpTime;
+    rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+  }
+
   // FixedUpdate is called once every 0.02 seconds or 50 times/second by default
   private void FixedUpdate() {
     float yVelocity = rb.velocity.y;
-    float xVelocity = xInput * moveSpeed;
+    float xVelocity = rb.velocity.x;
+    float targetVelocity = xInput * topSpeed;
+    xVelocity = Mathf.MoveTowards(xVelocity, targetVelocity, accelerationRate * Time.deltaTime);
     if (isJumping) {
       if (Input.GetButton("Jump") && currJumpTimer > 0) {
-        yVelocity = jumpForce;
+        rb.AddForce(Vector2.up * jumpForce * (jumpTime - currJumpTimer), ForceMode2D.Impulse);
         currJumpTimer -= Time.deltaTime;
       } else {
         isJumping = false;
       }
     }
-    Vector2 movement = new Vector2(xVelocity, yVelocity);
+    //if (!isGrounded() && xInput == 0) {
+    //  xVelocity = rb.velocity.x;
+    //} else if (!isGrounded() && xInput != 0) {
+    //  Debug.Log("sdklfjdsklf");
+    //  xVelocity = Mathf.MoveTowards(xVelocity, targetVelocity, airBourneAccelerationRate * Time.deltaTime);
+    //}
+    //xVelocity = Mathf.Lerp(rb.velocity.x, targetVelocity, airBourneAccelerationRate * Time.deltaTime);
+    if (!isGrounded()) {
+      if (xInput == 0) {
+        xVelocity = rb.velocity.x;
+      } else {
+        Debug.Log("wiggle");
+        xVelocity = xVelocity = Mathf.Lerp(rb.velocity.x, targetVelocity, airBourneAccelerationRate * Time.deltaTime);
+      }
+    }
+    Vector2 movement = new Vector2(xVelocity, rb.velocity.y);
     rb.velocity = movement;
+
+    rb.gravityScale = rb.velocity.y < 0 ? gravityScale * gravityMultiplier : gravityScale;
   }
 
   private bool isGrounded() {

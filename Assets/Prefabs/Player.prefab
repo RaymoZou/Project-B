@@ -174,12 +174,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c146b7e0bdfc01344bf2b8add4bb46d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  jumpForce: 4
-  jumpTime: 0.35
   groundCheck: {fileID: 1014152645505439243}
-  isJumping: 0
-  currJumpTimer: 0
+  baseMoveSpeed: 2
+  topSpeed: 4
+  accelerationRate: 30
+  deaccelerationRate: 1
+  jumpForce: 4
+  jumpTime: 0.15
+  gravityMultiplier: 1.75
+  gravityScale: 1
 --- !u!50 &1014152646722937722
 Rigidbody2D:
   serializedVersion: 4

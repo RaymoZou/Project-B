@@ -302,9 +302,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1014152646722937722, guid: e0f898ac317316b45992b41fc65816b3, type: 3}
-      propertyPath: m_GravityScale
-      value: 1
+    - target: {fileID: 1014152646722937723, guid: e0f898ac317316b45992b41fc65816b3, type: 3}
+      propertyPath: jumpTime
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014152646722937723, guid: e0f898ac317316b45992b41fc65816b3, type: 3}
+      propertyPath: accelerationRate
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1014152646722937723, guid: e0f898ac317316b45992b41fc65816b3, type: 3}
+      propertyPath: gravityMultiplier
+      value: 1.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0f898ac317316b45992b41fc65816b3, type: 3}
@@ -386,7 +394,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -10.05, y: 0.56, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
