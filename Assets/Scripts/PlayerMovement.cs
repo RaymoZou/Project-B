@@ -11,11 +11,13 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] float moveSpeed = 3;
   [SerializeField] float jumpForce = 4;
   [SerializeField] float jumpTime = 0.25f;
+  [SerializeField] float dashForce = 5000;
   [SerializeField] GameObject groundCheck;
-
+  [SerializeField] TrailRenderer tr;
 
   private float xInput;
   public bool isJumping = false;
+  public bool isDashing = false;
   public float currJumpTimer;
 
   private void Awake() {
@@ -33,12 +35,15 @@ public class PlayerMovement : MonoBehaviour {
       currJumpTimer = jumpTime;
       myAnimator.SetBool("isJump", isJumping);
     }
+    if (Input.GetButtonDown("Left Shift")) {
+      StartCoroutine(Dash());
+    }
     if (xInput != 0) {
       myAnimator.SetBool("isWalking", true);
     } else {
       myAnimator.SetBool("isWalking", false);
     }
-
+     
     // set sprite flip orientation
     if (xInput == 1) spriteRenderer.flipX = false;
     if (xInput == -1) spriteRenderer.flipX = true;
@@ -60,5 +65,16 @@ public class PlayerMovement : MonoBehaviour {
 
   private bool isGrounded() {
     return groundCheck.GetComponent<GroundCheck>().isGrounded;
+  }
+
+  private IEnumerator Dash()
+	{
+    isDashing = true;
+    Vector2 vector = new Vector2(xInput * dashForce, 0);
+    rb.AddForce(vector);
+    tr.emitting = true;
+    yield return new WaitForSeconds(1);
+    tr.emitting = false;
+    isDashing = false;
   }
 }
