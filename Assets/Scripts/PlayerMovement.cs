@@ -12,7 +12,6 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] GameObject groundCheck;
 
   [Header("Movement Settings")]
-  [SerializeField] float accelFactor = 1f;
   [SerializeField] float topSpeed = 5f;
   [SerializeField] float accelerationRate = 15f;
   [SerializeField] float deaccelerationRate = 10f;
@@ -21,16 +20,9 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] float gravityMultiplier = 1.5f;
   [SerializeField] float gravityScale = 1f;
   [SerializeField] float airBourneAccelerationRate = 5f;
-  [SerializeField] float airBourneDeaccelerationRate = 20f;
-  //[SerializeField] float jumpCutMultiplier = 0.5f;
   [SerializeField] float downwardForce = 1f;
   [SerializeField] float velPower = 1.25f;
-
-
-
-  [SerializeField] float baseMoveSpeed = 2.0f;
-  [SerializeField] float maxFallSpeed = 12.0f;
-
+  [SerializeField] float maxFallSpeed = 10.0f;
 
   private float xInput;
   private bool isJumping = false;
@@ -69,19 +61,12 @@ public class PlayerMovement : MonoBehaviour {
   // FixedUpdate is called once every 0.02 seconds or 50 times/second by default
   private void FixedUpdate() {
     #region Horizontal Movement
-    //float xVelocity = rb.velocity.x + xInput * accelFactor * Time.deltaTime;
-    //rb.AddForce(new Vector2(xInput * baseMoveSpeed, 0f));
-    //rb.velocity = new Vector2(Mathf.Clamp(rb.velocity.x, -topSpeed, topSpeed), rb.velocity.y);
-    //float proportionFriction = Mathf.Abs(rb.velocity.x) / topSpeed;
-    //rb.velocity *= 1f - proportionFriction * Time.deltaTime;
-
     float targetVelocity = xInput * topSpeed;
     float speedDiff = targetVelocity - rb.velocity.x;
     float accelRate = (Mathf.Abs(targetVelocity) > 0.01f) ? accelerationRate : deaccelerationRate;
     if (!isGrounded()) accelRate = airBourneAccelerationRate;
     float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velPower) * Mathf.Sign(speedDiff);
     if (isGrounded() || xInput != 0) rb.AddForce(movement * Vector2.right);
-    //rb.AddForce(movement * Vector2.right);
     #endregion
 
     if (Input.GetButton("Jump") && currJumpTime > 0f && isJumping) {
