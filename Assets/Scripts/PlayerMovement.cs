@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour {
   void Update() {
     xInput = Input.GetAxisRaw("Horizontal");
     if (Input.GetButtonDown("Jump") && isGrounded() && !isJumping) {
+      myAnimator.SetTrigger("isTakeOff");
       rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
       isJumping = true;
       currJumpTime = maxJumpTime;
