@@ -25,12 +25,14 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] float maxFallSpeed = 10.0f;
 
   [Header("Dash")]
-  [SerializeField] float dashForce = 20.0f;
+  [SerializeField] float dashForce = 50.0f;
   [SerializeField] bool isDashing = false;
+  [SerializeField] float dashTime = 0.3f;
 
   private float xInput;
   private bool isJumping = false;
   private float currJumpTime;
+  private float currDashTime;
 
   private void Awake() {
     rb = GetComponent<Rigidbody2D>();
@@ -48,7 +50,11 @@ public class PlayerMovement : MonoBehaviour {
       currJumpTime = maxJumpTime;
     }
 
-    if (Input.GetButtonDown("Left Shift")) isDashing = true;
+    if (Input.GetButtonDown("Left Shift")) {
+      isDashing = true;
+      rb.gravityScale = 0;
+      currDashTime = dashTime;
+    }
 
     if (Input.GetButtonUp("Jump") && currJumpTime > 0.01f) {
       Vector2 tempDownward = Vector2.down * downwardForce * (currJumpTime / maxJumpTime);
@@ -72,7 +78,12 @@ public class PlayerMovement : MonoBehaviour {
     if (isDashing) {
       float orientation = spriteRenderer.flipX ? -1 : 1;
       rb.AddForce(orientation * dashForce * Vector2.right, ForceMode2D.Impulse);
-      isDashing = false;
+      currDashTime -= Time.deltaTime;
+      if (currDashTime < 0) {
+        rb.gravityScale = gravityScale;
+        isDashing = false;
+        currDashTime = 0;
+      }
     } else {
       float targetVelocity = xInput * topSpeed;
       float speedDiff = targetVelocity - rb.velocity.x;
