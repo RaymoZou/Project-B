@@ -24,6 +24,10 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] float velPower = 1.25f;
   [SerializeField] float maxFallSpeed = 10.0f;
 
+  [Header("Dash")]
+  [SerializeField] float dashForce = 20.0f;
+  [SerializeField] bool isDashing = false;
+
   private float xInput;
   private bool isJumping = false;
   private float currJumpTime;
@@ -44,6 +48,8 @@ public class PlayerMovement : MonoBehaviour {
       currJumpTime = maxJumpTime;
     }
 
+    if (Input.GetButtonDown("Left Shift")) isDashing = true;
+
     if (Input.GetButtonUp("Jump") && currJumpTime > 0.01f) {
       Vector2 tempDownward = Vector2.down * downwardForce * (currJumpTime / maxJumpTime);
       //Debug.Log(Mathf.Abs(tempDownward.y));
@@ -62,12 +68,18 @@ public class PlayerMovement : MonoBehaviour {
   // FixedUpdate is called once every 0.02 seconds or 50 times/second by default
   private void FixedUpdate() {
     #region Horizontal Movement
-    float targetVelocity = xInput * topSpeed;
-    float speedDiff = targetVelocity - rb.velocity.x;
-    float accelRate = (Mathf.Abs(targetVelocity) > 0.01f) ? accelerationRate : deaccelerationRate;
-    if (!isGrounded()) accelRate = airBourneAccelerationRate;
-    float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velPower) * Mathf.Sign(speedDiff);
-    if (isGrounded() || xInput != 0) rb.AddForce(movement * Vector2.right);
+
+    if (isDashing) {
+      float orientation = spriteRenderer.flipX ? -1 : 1;
+      rb.AddForce(orientation * dashForce * Vector2.right, ForceMode2D.Impulse);
+      isDashing = false;
+    } else {
+      float targetVelocity = xInput * topSpeed;
+      float speedDiff = targetVelocity - rb.velocity.x;
+      float accelRate = (Mathf.Abs(targetVelocity) > 0.01f) ? accelerationRate : deaccelerationRate;
+      float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velPower) * Mathf.Sign(speedDiff);
+      rb.AddForce(movement * Vector2.right);
+    }
     #endregion
 
     if (Input.GetButton("Jump") && currJumpTime > 0f && isJumping) {
