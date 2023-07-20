@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] float maxJumpTime = 0.25f;
   [SerializeField] float gravityMultiplier = 1.5f;
   [SerializeField] float gravityScale = 1f;
-  [SerializeField] float airBourneAccelerationRate = 5f;
+  //[SerializeField] float airBourneAccelerationRate = 5f;
   [SerializeField] float downwardForce = 1f;
   [SerializeField] float velPower = 1.25f;
   [SerializeField] float maxFallSpeed = 10.0f;
@@ -65,9 +65,10 @@ public class PlayerMovement : MonoBehaviour {
     float targetVelocity = xInput * topSpeed;
     float speedDiff = targetVelocity - rb.velocity.x;
     float accelRate = (Mathf.Abs(targetVelocity) > 0.01f) ? accelerationRate : deaccelerationRate;
-    if (!isGrounded()) accelRate = airBourneAccelerationRate;
+    //if (!isGrounded()) accelRate = airBourneAccelerationRate;
     float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velPower) * Mathf.Sign(speedDiff);
-    if (isGrounded() || xInput != 0) rb.AddForce(movement * Vector2.right);
+    //if (isGrounded() || xInput != 0) rb.AddForce(movement * Vector2.right);
+    rb.AddForce(movement * Vector2.right);
     #endregion
 
     if (Input.GetButton("Jump") && currJumpTime > 0f && isJumping) {
