@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ba41922598648404188a83d39f1a2f01
+guid: c2173b7e0ba9794489275df08a0e027e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -116,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: portal1_0
+      name: key_spritesheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 2
+        height: 2
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,20 +130,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9dca2ca00c53d54bbf373ee6f96210b
-      internalID: 2029445291
+      spriteID: 8d3c9d2a1ba23fb42be5ba9d3af108f8
+      internalID: 317816056
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: portal1_1
+      name: key_spritesheet_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 2
         y: 0
-        width: 32
-        height: 32
+        width: 2
+        height: 2
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,8 +151,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24d7c053d8083a2419b4730d5cfc99c6
-      internalID: -1737187977
+      spriteID: 5884fe3740b2f744abb6b258dde9534b
+      internalID: -393692638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: key_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 0
+        width: 2
+        height: 2
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00a4edc0db435b64fa3a392c67933ff8
+      internalID: -2041175224
       vertices: []
       indices: 
       edges: []
@@ -168,8 +189,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      portal1_1: -1737187977
-      portal1_0: 2029445291
+      key_spritesheet_0: 317816056
+      key_spritesheet_2: -2041175224
+      key_spritesheet_1: -393692638
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
