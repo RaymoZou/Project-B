@@ -177,7 +177,7 @@ MonoBehaviour:
   groundCheck: {fileID: 1014152645505439243}
   topSpeed: 4
   accelerationRate: 7.5
-  deaccelerationRate: 10
+  deaccelerationRate: 5
   jumpForce: 7
   maxJumpTime: 0.35
   gravityMultiplier: 1.25
@@ -186,6 +186,9 @@ MonoBehaviour:
   downwardForce: 2
   velPower: 1.25
   maxFallSpeed: 10
+  dashForce: 5
+  isDashing: 0
+  dashTime: 0.1
 --- !u!50 &1014152646722937722
 Rigidbody2D:
   serializedVersion: 4
