@@ -9,14 +9,16 @@ public class Portal : MonoBehaviour {
   [SerializeField] GameObject orangeKey;
   [SerializeField] GameObject purpleKey;
   [SerializeField] GameObject greenKey;
+  [SerializeField] Sprite openSprite;
+
+  private SpriteRenderer spriteRenderer;
 
   private void Awake() {
+    spriteRenderer = GetComponent<SpriteRenderer>();
     Key.ColorChanged += CollectKey;
   }
 
   private void CollectKey(Key.KeyColor color) {
-    Debug.Log(color + " key has been collected.");
-    //if (color == Key.KeyColor.Orange) orangeKey.SetActive(true);
     switch (color) {
       case Key.KeyColor.Orange:
         orangeKey.SetActive(true);
@@ -28,6 +30,9 @@ public class Portal : MonoBehaviour {
         purpleKey.SetActive(true);
         break;
     }
+
+    isOpen = orangeKey.activeSelf && greenKey.activeSelf && purpleKey.activeSelf;
+    if (isOpen) spriteRenderer.sprite = openSprite;
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
