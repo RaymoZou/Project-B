@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
   private static GameManager instance;
-  private Vector3 playerSpawn = new Vector3(0, 1, 0);
+  private Vector3 playerSpawn = new Vector3(-9, 0.5f, 0);
 
   [SerializeField] private GameObject playerPrefab;
 
@@ -16,10 +16,16 @@ public class GameManager : MonoBehaviour {
     instance = this;
     DontDestroyOnLoad(gameObject);
     Health.OnDeath += RespawnPlayer;
+    RespawnCheckpoint.OnActivate += UpdateSpawn;
   }
 
   private void OnDestroy() {
     Health.OnDeath -= RespawnPlayer;
+    RespawnCheckpoint.OnActivate -= UpdateSpawn;
+  }
+
+  private void UpdateSpawn(Vector2 spawnPos) {
+    playerSpawn = spawnPos;
   }
 
 
