@@ -12,22 +12,21 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] GameObject groundCheck;
 
   [Header("Movement Settings")]
-  [SerializeField] float topSpeed = 5f;
-  [SerializeField] float accelerationRate = 15f;
-  [SerializeField] float deaccelerationRate = 10f;
-  [SerializeField] float jumpForce = 4f;
-  [SerializeField] float maxJumpTime = 0.25f;
-  [SerializeField] float gravityMultiplier = 1.5f;
+  [SerializeField] float topSpeed = 4f;
+  [SerializeField] float accelerationRate = 7.5f;
+  [SerializeField] float deaccelerationRate = 5f;
+  [SerializeField] float jumpForce = 7f;
+  [SerializeField] float maxJumpTime = 0.35f;
+  [SerializeField] float gravityMultiplier = 1.25f;
   [SerializeField] float gravityScale = 1f;
-  //[SerializeField] float airBourneAccelerationRate = 5f;
-  [SerializeField] float downwardForce = 1f;
+  [SerializeField] float downwardForce = 2f;
   [SerializeField] float velPower = 1.25f;
   [SerializeField] float maxFallSpeed = 10.0f;
 
   [Header("Dash")]
-  [SerializeField] float dashForce = 50.0f;
+  [SerializeField] float dashForce = 5.0f;
   [SerializeField] bool isDashing = false;
-  [SerializeField] float dashTime = 0.3f;
+  [SerializeField] float dashTime = 0.1f;
 
   private float xInput;
   private bool isJumping = false;
@@ -57,7 +56,6 @@ public class PlayerMovement : MonoBehaviour {
 
     if (Input.GetButtonUp("Jump") && currJumpTime > 0.01f) {
       Vector2 tempDownward = Vector2.down * downwardForce * (currJumpTime / maxJumpTime);
-      //Debug.Log(Mathf.Abs(tempDownward.y));
       rb.AddForce(tempDownward, ForceMode2D.Impulse);
     }
 

@@ -16336,14 +16336,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Respawn Checkpoint
       objectReference: {fileID: 0}
-    - target: {fileID: 7166395815546403857, guid: 9879a6fb2b5bd434f8d723740ffd29d9, type: 3}
-      propertyPath: m_SortingLayer
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7166395815546403857, guid: 9879a6fb2b5bd434f8d723740ffd29d9, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -840166459
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9879a6fb2b5bd434f8d723740ffd29d9, type: 3}
 --- !u!111 &7467161511694385267

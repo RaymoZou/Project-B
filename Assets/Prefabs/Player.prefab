@@ -182,7 +182,6 @@ MonoBehaviour:
   maxJumpTime: 0.35
   gravityMultiplier: 1.25
   gravityScale: 1
-  airBourneAccelerationRate: 3.5
   downwardForce: 2
   velPower: 1.25
   maxFallSpeed: 10
