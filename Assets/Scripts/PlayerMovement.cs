@@ -9,7 +9,10 @@ public class PlayerMovement : MonoBehaviour {
   Animator myAnimator;
   SpriteRenderer spriteRenderer;
 
-  [SerializeField] GameObject groundCheck;
+  [Header("Ground check")]
+  [SerializeField] Transform groundCheck;
+  private bool isGrounded = false;
+  private float minDistanceOffGround = 0.1f;
 
   [Header("Movement Settings")]
   [SerializeField] float topSpeed = 5f;
@@ -43,27 +46,34 @@ public class PlayerMovement : MonoBehaviour {
   // Update is called once per frame
   void Update() {
     xInput = Input.GetAxisRaw("Horizontal");
-    if (Input.GetButtonDown("Jump") && isGrounded() && !isJumping) {
-      rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-      isJumping = true;
-      currJumpTime = maxJumpTime;
-    }
 
+    #region Dash
     if (Input.GetButtonDown("Left Shift")) {
       isDashing = true;
       rb.gravityScale = 0;
       currDashTime = dashTime;
     }
+    #endregion
 
+    #region Jump / Ground Check
+    if (Input.GetButtonDown("Jump") && isGrounded && !isJumping) {
+      rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+      isJumping = true;
+      currJumpTime = maxJumpTime;
+    }
     if (Input.GetButtonUp("Jump") && currJumpTime > 0.01f) {
       Vector2 tempDownward = Vector2.down * downwardForce * (currJumpTime / maxJumpTime);
       //Debug.Log(Mathf.Abs(tempDownward.y));
       rb.AddForce(tempDownward, ForceMode2D.Impulse);
     }
 
+    isGrounded = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, minDistanceOffGround, LayerMask.GetMask("Ground"));
+    Debug.DrawRay(groundCheck.transform.position, Vector2.down * minDistanceOffGround, Color.green);
+    #endregion
+
     #region Animation / Visuals
     if (myAnimator == null) return;
-    myAnimator.SetBool("isJump", !isGrounded());
+    myAnimator.SetBool("isJump", !isGrounded);
     myAnimator.SetBool("isWalking", xInput != 0 ? true : false);
     myAnimator.SetBool("isDash", isDashing);
     if (xInput == 1) spriteRenderer.flipX = false;
@@ -103,9 +113,5 @@ public class PlayerMovement : MonoBehaviour {
 
     rb.gravityScale = rb.velocity.y < 0 ? gravityScale * gravityMultiplier : gravityScale;
     if (rb.velocity.y < -maxFallSpeed) rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
-  }
-
-  private bool isGrounded() {
-    return groundCheck.GetComponent<GroundCheck>().isGrounded;
   }
 }
