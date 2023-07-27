@@ -1,3 +1,4 @@
+using System;
 using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,16 +26,19 @@ public class PlayerMovement : MonoBehaviour {
   [SerializeField] float downwardForce = 2f;
   [SerializeField] float velPower = 1.25f;
   [SerializeField] float maxFallSpeed = 10.0f;
+  private bool isJumping = false;
+  private float xInput;
+  private float currJumpTime;
 
   [Header("Dash")]
   [SerializeField] float dashForce = 5.0f;
   [SerializeField] bool isDashing = false;
-  [SerializeField] float dashTime = 0.1f;
+  [SerializeField] float dashDuration = 0.1f;
+  [SerializeField] float dashCooldown = 2f;
+  [SerializeField] float currDashCooldown;
+  public static event Action<float> OnDashChange;
+  private float currDashDuration;
 
-  private float xInput;
-  private bool isJumping = false;
-  private float currJumpTime;
-  private float currDashTime;
 
   private void Awake() {
     rb = GetComponent<Rigidbody2D>();
@@ -47,11 +51,14 @@ public class PlayerMovement : MonoBehaviour {
     xInput = Input.GetAxisRaw("Horizontal");
 
     #region Dash
-    if (Input.GetButtonDown("Left Shift")) {
+    if (Input.GetButtonDown("Left Shift") && currDashCooldown < 0) {
+      OnDashChange.Invoke(dashCooldown);
+      currDashCooldown = dashCooldown;
       isDashing = true;
       rb.gravityScale = 0;
-      currDashTime = dashTime;
+      currDashDuration = dashDuration;
     }
+    currDashCooldown -= Time.deltaTime;
     #endregion
 
     #region Jump / Ground Check
@@ -86,11 +93,11 @@ public class PlayerMovement : MonoBehaviour {
     if (isDashing) {
       float orientation = spriteRenderer.flipX ? -1 : 1;
       rb.AddForce(orientation * dashForce * Vector2.right, ForceMode2D.Impulse);
-      currDashTime -= Time.deltaTime;
-      if (currDashTime < 0) {
+      currDashDuration -= Time.deltaTime;
+      if (currDashDuration < 0) {
         rb.gravityScale = gravityScale;
         isDashing = false;
-        currDashTime = 0;
+        currDashDuration = 0;
       }
     } else {
       float targetVelocity = xInput * topSpeed;
