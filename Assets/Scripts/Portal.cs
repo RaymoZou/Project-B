@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Rendering.Universal;
 
 public class Portal : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class Portal : MonoBehaviour {
   [SerializeField] GameObject purpleKey;
   [SerializeField] GameObject greenKey;
   [SerializeField] Sprite openSprite;
+
+  [SerializeField] GameObject portalLight;
 
   private SpriteRenderer spriteRenderer;
 
@@ -32,7 +35,10 @@ public class Portal : MonoBehaviour {
     }
 
     isOpen = orangeKey.activeSelf && greenKey.activeSelf && purpleKey.activeSelf;
-    if (isOpen) spriteRenderer.sprite = openSprite;
+    if (isOpen) {
+      spriteRenderer.sprite = openSprite;
+      portalLight.SetActive(true);
+    }
   }
 
   private void OnTriggerEnter2D(Collider2D collision) {
