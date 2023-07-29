@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour {
 
     #region Dash
     if (Input.GetButtonDown("Left Shift") && currDashCooldown < 0) {
-      OnDashChange.Invoke(dashCooldown);
+      OnDashChange?.Invoke(dashCooldown);
       currDashCooldown = dashCooldown;
       isDashing = true;
       rb.gravityScale = 0;

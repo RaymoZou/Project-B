@@ -13,6 +13,10 @@ public class DashUI : MonoBehaviour {
     PlayerMovement.OnDashChange += SetDisabled;
   }
 
+  private void OnDestroy() {
+    PlayerMovement.OnDashChange -= SetDisabled;
+  }
+
   private void SetDisabled(float disableTime) {
     StartCoroutine(SetDisabledCouroutine(disableTime));
   }
