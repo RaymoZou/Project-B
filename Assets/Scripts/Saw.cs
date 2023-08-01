@@ -31,7 +31,7 @@ public class Saw : MonoBehaviour, IDamageable {
   }
 
   public void DoDamage(Health health) {
-    health.DamagePlayer(100);
+    health.DamagePlayer(damage);
   }
 
 }
