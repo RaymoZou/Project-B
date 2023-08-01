@@ -253,7 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 391487428063190178}
   m_Layer: 0
-  m_Name: orange_key_parent
+  m_Name: Orange_Key_Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

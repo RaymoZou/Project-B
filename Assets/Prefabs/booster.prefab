@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8339704440758522501}
   - component: {fileID: 8339704440758522500}
   m_Layer: 0
-  m_Name: booster
+  m_Name: Booster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
