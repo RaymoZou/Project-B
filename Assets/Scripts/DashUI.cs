@@ -7,10 +7,13 @@ public class DashUI : MonoBehaviour {
 
   public bool isEnabled = false;
   private Image image;
+  private Animator animator;
+
 
   private void Awake() {
     image = GetComponent<Image>();
     PlayerMovement.OnDashChange += SetDisabled;
+    animator = GetComponent<Animator>();
   }
 
   private void OnDestroy() {
@@ -22,6 +25,12 @@ public class DashUI : MonoBehaviour {
   }
 
   IEnumerator SetDisabledCouroutine(float disableTime) {
+    AnimationClip clip = animator.runtimeAnimatorController.animationClips[0];
+    animator.Play(clip.name, -1, 0f);
+    animator.speed = 0f;
+    yield return null;
+    animator.speed = clip.length / disableTime;
+
     Color tempColor = image.color;
     tempColor.a = 0.5f;
     image.color = tempColor;

@@ -643,6 +643,7 @@ GameObject:
   - component: {fileID: 8390110714043719499}
   - component: {fileID: 8390110714043719540}
   - component: {fileID: 8390110714043719498}
+  - component: {fileID: 1625131311}
   m_Layer: 5
   m_Name: DashIcon
   m_TagString: Untagged
@@ -698,7 +699,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2af5d7cc8d7e1974f90451f7627ea2f6, type: 3}
+  m_Sprite: {fileID: 1690098362, guid: 2af5d7cc8d7e1974f90451f7627ea2f6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -721,6 +722,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isEnabled: 0
+--- !u!95 &1625131311
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8390110714043719542}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0721c2137b15534ca723ba3ceb078d5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8933008221589833640
 GameObject:
   m_ObjectHideFlags: 0
