@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
   private static GameManager instance;
-  private Vector3 playerSpawn = new Vector3(-9, 0.5f, 0);
+  private Vector3 playerSpawn = Vector3.zero;
 
   [SerializeField] private GameObject playerPrefab;
 
