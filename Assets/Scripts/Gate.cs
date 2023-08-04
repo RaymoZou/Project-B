@@ -19,6 +19,7 @@ public class Gate : MonoBehaviour {
 
   private void Start() {
     spriteRenderer.sprite = isOpen ? emptySprite : solidSprite;
+    boxCollider.enabled = !isOpen;
   }
 
   private void OnDestroy() {
@@ -28,12 +29,7 @@ public class Gate : MonoBehaviour {
   private void HandleTriggered(Key.KeyColor color) {
     if (colorCode != color) return;
     isOpen = !isOpen;
-    if (isOpen) {
-      spriteRenderer.sprite = emptySprite;
-      boxCollider.enabled = false;
-    } else {
-      spriteRenderer.sprite = solidSprite;
-      boxCollider.enabled = true;
-    }
+    spriteRenderer.sprite = isOpen ? emptySprite : solidSprite;
+    boxCollider.enabled = !isOpen;
   }
 }

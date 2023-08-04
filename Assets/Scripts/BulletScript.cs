@@ -5,6 +5,17 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour, IDamageable {
 
   [SerializeField] int damage = 25;
+  [SerializeField] float despawnTimer = 10f;
+
+  private void Start() {
+    StartCoroutine(DespawnCoroutine());
+  }
+
+  IEnumerator DespawnCoroutine() {
+    yield return new WaitForSeconds(despawnTimer);
+    Destroy(gameObject);
+  }
+
 
   private void OnCollisionEnter2D(Collision2D collision) {
     if (collision.gameObject.tag == "Player") {
