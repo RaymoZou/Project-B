@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour {
   public static event Action<float> OnDashChange;
   private float currDashDuration;
 
+  private Interactable currInteractable; 
 
   private void Awake() {
     rb = GetComponent<Rigidbody2D>();
@@ -49,6 +50,10 @@ public class PlayerController : MonoBehaviour {
   // Update is called once per frame
   void Update() {
     xInput = Input.GetAxisRaw("Horizontal");
+
+    if (Input.GetButtonDown("Interact")) {
+      if (currInteractable != null) currInteractable.Interact();
+    }
 
     #region Dash
     if (Input.GetButtonDown("Left Shift") && currDashCooldown < 0) {
@@ -118,5 +123,9 @@ public class PlayerController : MonoBehaviour {
 
     rb.gravityScale = rb.velocity.y < 0 ? gravityScale * gravityMultiplier : gravityScale;
     if (rb.velocity.y < -maxFallSpeed) rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
+  }
+
+  public void SetInteractable(Interactable interactable) {
+    currInteractable = interactable;
   }
 }

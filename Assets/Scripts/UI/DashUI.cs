@@ -14,7 +14,7 @@ public class DashUI : MonoBehaviour {
 
   private void Awake() {
     image = GetComponent<Image>();
-    PlayerMovement.OnDashChange += SetDisabled;
+    PlayerController.OnDashChange += SetDisabled;
     animator = GetComponent<Animator>();
   }
 
@@ -23,7 +23,7 @@ public class DashUI : MonoBehaviour {
   }
 
   private void OnDestroy() {
-    PlayerMovement.OnDashChange -= SetDisabled;
+    PlayerController.OnDashChange -= SetDisabled;
   }
 
   private void SetDisabled(float disableTime) {
