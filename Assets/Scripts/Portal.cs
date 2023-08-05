@@ -21,6 +21,10 @@ public class Portal : MonoBehaviour {
     Key.ColorChanged += CollectKey;
   }
 
+  private void OnDestroy() {
+    Key.ColorChanged -= CollectKey;
+  }
+
   private void CollectKey(Key.KeyColor color) {
     switch (color) {
       case Key.KeyColor.Orange:

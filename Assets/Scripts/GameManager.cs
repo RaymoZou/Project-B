@@ -11,12 +11,17 @@ public class GameManager : MonoBehaviour {
 
   [SerializeField] private GameObject playerPrefab;
 
-
   public void Awake() {
+    Health.OnDeath += RespawnPlayer;
+    SceneManager.sceneLoaded += OnSceneLoaded;
+    RespawnCheckpoint.OnActivate += UpdateSpawn;
+
+    if (instance != null && instance != this) {
+      Destroy(gameObject);
+      return;
+    }
     instance = this;
     DontDestroyOnLoad(gameObject);
-    Health.OnDeath += RespawnPlayer;
-    RespawnCheckpoint.OnActivate += UpdateSpawn;
   }
 
   private void OnDestroy() {
@@ -24,17 +29,20 @@ public class GameManager : MonoBehaviour {
     RespawnCheckpoint.OnActivate -= UpdateSpawn;
   }
 
-  private void UpdateSpawn(Vector2 spawnPos) {
+  public void UpdateSpawn(Vector2 spawnPos) {
     playerSpawn = spawnPos;
   }
 
+  private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    UpdateSpawn(Vector2.zero);
+  }
 
   public static void LoadNextLevel() {
     int currSceneIndex = SceneManager.GetActiveScene().buildIndex;
     if (currSceneIndex < SceneManager.sceneCountInBuildSettings - 1) {
       SceneManager.LoadScene(currSceneIndex + 1);
     } else {
-      Debug.LogError("No more scenes to load.");
+      SceneManager.LoadScene(0);
     }
   }
 
