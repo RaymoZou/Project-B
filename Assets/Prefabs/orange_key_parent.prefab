@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1707292202, guid: 0dcf3b8739af38c40941d8da5c9d76fc, type: 3}
+  m_Sprite: {fileID: -1045891781, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   m_Color: {r: 1, g: 0.7446823, b: 0.3915094, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -253,7 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 391487428063190178}
   m_Layer: 0
-  m_Name: Orange_Key_Parent
+  m_Name: orange_key_parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

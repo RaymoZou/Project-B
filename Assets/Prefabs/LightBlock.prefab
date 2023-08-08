@@ -82,7 +82,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &2035710152
@@ -211,8 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d0d2632ea3aa334b9147aa3c3fd0e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inactiveSprite: {fileID: 21300000, guid: 390fc8af13d1bdc43940c49c801794f1, type: 3}
-  activeSprite: {fileID: 21300000, guid: dceee3055c9ac4f47857ead4843160ac, type: 3}
+  inactiveSprite: {fileID: 1144229758, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
+  activeSprite: {fileID: 71621349, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   inactiveIntensity: 0.2
   activeIntensity: 0.6
   solidCollider: {fileID: 2035710152}
