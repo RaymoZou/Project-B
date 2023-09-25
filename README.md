@@ -1,5 +1,8 @@
 # Project B
-- 2D pixel-style platform where the player attempts to collect 3 different coloured keys (green, orange, purple) that unlock a gate to the next level.
+- 2D pixel-style platformer prototype.
+
+## Objective & Mechanics
+The objective of the game is to unlock the gate by collecting three different coloured keys in each level (green, purple, and orange) while navigating around a number of different obstacles. Players can save their position in each level by lighting the goblets that can be found at different stages in each level.
 
 ## Controls
 - WASD to move
