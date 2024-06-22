@@ -10,8 +10,12 @@ public class RespawnCheckpoint : MonoBehaviour {
 
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.CompareTag("Player")) {
-      activatedCheckpoint.gameObject.SetActive(true);
-      OnActivate?.Invoke(new Vector3(transform.position.x, transform.position.y));
+      if (collision.gameObject.layer == gameObject.layer)
+      {
+        Debug.Log("it's a match!");
+        activatedCheckpoint.gameObject.SetActive(true);
+        OnActivate?.Invoke(new Vector3(transform.position.x, transform.position.y));
+      }
     }
   }
 

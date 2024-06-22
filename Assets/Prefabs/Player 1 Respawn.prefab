@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5581872047066099163}
   - component: {fileID: 5581872047066099162}
   - component: {fileID: 5581872047066099141}
-  m_Layer: 0
-  m_Name: Respawn Checkpoint
+  m_Layer: 6
+  m_Name: Player 1 Respawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 0
   m_Sprite: {fileID: -26788021, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -136,7 +136,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4445956404050967310}
   - component: {fileID: 5210419557840101483}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 2153114576737971689}
   - component: {fileID: 7166395815546403857}
   - component: {fileID: 76943502}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RespawnFlame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
