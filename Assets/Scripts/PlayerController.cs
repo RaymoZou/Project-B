@@ -4,7 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
   Rigidbody2D rb;
   Animator myAnimator;
@@ -39,24 +40,28 @@ public class PlayerController : MonoBehaviour {
   public static event Action<float> OnDashChange;
   private float currDashDuration;
 
-  private Interactable currInteractable; 
+  private Interactable currInteractable;
 
-  private void Awake() {
+  private void Awake()
+  {
     rb = GetComponent<Rigidbody2D>();
     spriteRenderer = GetComponent<SpriteRenderer>();
     myAnimator = GetComponent<Animator>();
   }
 
   // Update is called once per frame
-  void Update() {
+  void Update()
+  {
     xInput = Input.GetAxisRaw("Horizontal");
 
-    if (Input.GetButtonDown("Interact")) {
+    if (Input.GetButtonDown("Interact"))
+    {
       if (currInteractable != null) currInteractable.Interact();
     }
 
     #region Dash
-    if (Input.GetButtonDown("Left Shift") && currDashCooldown < 0) {
+    if (Input.GetButtonDown("Left Shift") && currDashCooldown < 0)
+    {
       OnDashChange?.Invoke(dashCooldown);
       currDashCooldown = dashCooldown;
       isDashing = true;
@@ -67,12 +72,14 @@ public class PlayerController : MonoBehaviour {
     #endregion
 
     #region Jump / Ground Check
-    if (Input.GetButtonDown("Jump") && isGrounded && !isJumping) {
+    if (Input.GetButtonDown("Jump") && isGrounded && !isJumping)
+    {
       rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
       isJumping = true;
       currJumpTime = maxJumpTime;
     }
-    if (Input.GetButtonUp("Jump") && currJumpTime > 0.01f) {
+    if (Input.GetButtonUp("Jump") && currJumpTime > 0.01f)
+    {
       Vector2 tempDownward = Vector2.down * downwardForce * (currJumpTime / maxJumpTime);
       rb.AddForce(tempDownward, ForceMode2D.Impulse);
     }
@@ -92,19 +99,24 @@ public class PlayerController : MonoBehaviour {
   }
 
   // FixedUpdate is called once every 0.02 seconds or 50 times/second by default
-  private void FixedUpdate() {
+  private void FixedUpdate()
+  {
     #region Horizontal Movement
 
-    if (isDashing) {
+    if (isDashing)
+    {
       float orientation = spriteRenderer.flipX ? -1 : 1;
       rb.AddForce(orientation * dashForce * Vector2.right, ForceMode2D.Impulse);
       currDashDuration -= Time.deltaTime;
-      if (currDashDuration < 0) {
+      if (currDashDuration < 0)
+      {
         rb.gravityScale = gravityScale;
         isDashing = false;
         currDashDuration = 0;
       }
-    } else {
+    }
+    else
+    {
       float targetVelocity = xInput * topSpeed;
       float speedDiff = targetVelocity - rb.velocity.x;
       float accelRate = (Mathf.Abs(targetVelocity) > 0.01f) ? accelerationRate : deaccelerationRate;
@@ -113,11 +125,14 @@ public class PlayerController : MonoBehaviour {
     }
     #endregion
 
-    if (Input.GetButton("Jump") && currJumpTime > 0f && isJumping) {
+    if (Input.GetButton("Jump") && currJumpTime > 0f && isJumping)
+    {
       rb.AddForce(Vector2.up * jumpForce);
       isJumping = true;
       currJumpTime -= Time.deltaTime;
-    } else {
+    }
+    else
+    {
       isJumping = false;
     }
 
@@ -125,7 +140,8 @@ public class PlayerController : MonoBehaviour {
     if (rb.velocity.y < -maxFallSpeed) rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
   }
 
-  public void SetInteractable(Interactable interactable) {
+  public void SetInteractable(Interactable interactable)
+  {
     currInteractable = interactable;
   }
 }

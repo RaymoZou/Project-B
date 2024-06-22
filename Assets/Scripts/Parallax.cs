@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Parallax : MonoBehaviour {
 
+  // TODO: reimplement parallax that takes into account the two cameras
   [SerializeField] Camera cam;
   [SerializeField] float followSpeed = 0.5f;
 

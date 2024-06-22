@@ -5,6 +5,7 @@ using UnityEngine;
 public class Booster : MonoBehaviour {
 
   [SerializeField] float boosterForce = 8.0f;
+  
 
   // player must have RigidBody2D component
   private void OnCollisionEnter2D(Collision2D collision) {
