@@ -3,6 +3,7 @@ using System.Buffers.Text;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -40,10 +41,26 @@ public class PlayerController : MonoBehaviour
   public static event Action<float> OnDashChange;
   private float currDashDuration;
 
+  [Header("Player Input")]
+  private PlayerInput playerInput;
+  public bool isJumpInput;
+  public bool isDashingInput;
+
   private Interactable currInteractable;
+
+  private void OnJump(InputAction.CallbackContext context) { isJumpInput = true; }
+  private void OnJumpRelease(InputAction.CallbackContext context) { isJumpInput = false; }
+  private void OnDash(InputAction.CallbackContext context) { isDashingInput = true; }
+  private void OnDashRelease(InputAction.CallbackContext context) { isDashingInput = false; }
 
   private void Awake()
   {
+    // TODO: refactor subscription into separate setup method
+    playerInput = GetComponent<PlayerInput>();
+    playerInput.actions["Jump"].started += OnJump;
+    playerInput.actions["Jump"].canceled += OnJumpRelease;
+    playerInput.actions["Dash"].started += OnDash;
+    playerInput.actions["Dash"].canceled += OnDashRelease;
     rb = GetComponent<Rigidbody2D>();
     spriteRenderer = GetComponent<SpriteRenderer>();
     myAnimator = GetComponent<Animator>();
@@ -52,7 +69,7 @@ public class PlayerController : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    xInput = Input.GetAxisRaw("Horizontal");
+    xInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
 
     if (Input.GetButtonDown("Interact"))
     {
@@ -60,7 +77,7 @@ public class PlayerController : MonoBehaviour
     }
 
     #region Dash
-    if (Input.GetButtonDown("Left Shift") && currDashCooldown < 0)
+    if (isDashingInput && currDashCooldown < 0)
     {
       OnDashChange?.Invoke(dashCooldown);
       currDashCooldown = dashCooldown;
@@ -72,16 +89,12 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Jump / Ground Check
-    if (Input.GetButtonDown("Jump") && isGrounded && !isJumping)
+    // Refactor into the FixedUpdate - DO NOT ADDFORCE IN UPDATE METHOD
+    if (isJumpInput && isGrounded && !isJumping)
     {
       rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
       isJumping = true;
       currJumpTime = maxJumpTime;
-    }
-    if (Input.GetButtonUp("Jump") && currJumpTime > 0.01f)
-    {
-      Vector2 tempDownward = Vector2.down * downwardForce * (currJumpTime / maxJumpTime);
-      rb.AddForce(tempDownward, ForceMode2D.Impulse);
     }
 
     isGrounded = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, minDistanceOffGround, LayerMask.GetMask("Ground"));
@@ -114,8 +127,7 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
         currDashDuration = 0;
       }
-    }
-    else
+    } else
     {
       float targetVelocity = xInput * topSpeed;
       float speedDiff = targetVelocity - rb.velocity.x;
@@ -125,13 +137,12 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    if (Input.GetButton("Jump") && currJumpTime > 0f && isJumping)
+    if (isJumpInput && currJumpTime > 0f && isJumping)
     {
       rb.AddForce(Vector2.up * jumpForce);
       isJumping = true;
       currJumpTime -= Time.deltaTime;
-    }
-    else
+    } else
     {
       isJumping = false;
     }
