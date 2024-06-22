@@ -139,22 +139,20 @@ MonoBehaviour:
   topSpeed: 4
   accelerationRate: 7.5
   deaccelerationRate: 5
-  jumpForce: 12.62
+  jumpForce: 7
   maxJumpTime: 0.35
   gravityMultiplier: 1.25
   gravityScale: 1
   downwardForce: 2
   velPower: 1.25
   maxFallSpeed: 10
-  isJumping: 0
-  xInput: 0
-  currJumpTime: 0
   dashForce: 5
   isDashing: 0
   dashDuration: 0.1
   dashCooldown: 2
   currDashCooldown: 0
-  playerInput: {fileID: 0}
+  isJumpInput: 0
+  isDashingInput: 0
 --- !u!50 &4890796050072122573
 Rigidbody2D:
   serializedVersion: 4
@@ -249,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: a5727e0e6b3395d4db08c5b68afdb958, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -260,7 +258,67 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d30fe159-9cf2-4d5e-a136-ae9a5417a40e
+    m_ActionName: Player/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2c68cb35-97d2-4a9a-af24-29758a6298db
+    m_ActionName: Player/Look
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 128a6469-ffd5-422f-b01f-690d79c1d862
+    m_ActionName: Player/Fire
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1d941e37-779b-4855-b9ed-cad6ab9f9003
+    m_ActionName: Player/Jump[/Keyboard/space,/Keyboard/w]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 97d2317d-3b43-462c-a7b8-f51882bf6644
+    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bc911510-81b0-4544-b222-9a77a33de7ac
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dd9dd5c9-52b6-4dac-b9a7-64e7af815861
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e808f27c-b15e-44ed-b07e-a40fb55f33f7
+    m_ActionName: UI/Point
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 13ee5ab6-84c3-4360-9e9d-c17d047e9cce
+    m_ActionName: UI/Click
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 459dae53-cedc-48f1-bac9-f6550e971917
+    m_ActionName: UI/ScrollWheel
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0d5eff69-179e-4972-a0e4-ea3a16fa397c
+    m_ActionName: UI/MiddleClick
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5dacfeac-2882-4ace-bc76-3fe214d0fdf8
+    m_ActionName: UI/RightClick
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5b30331b-1692-4f12-9c78-8a203f93995f
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9b59aefd-e47c-4aa1-b469-67219750d852
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e3b708cd-f572-401b-8ab5-821992c02b09
+    m_ActionName: Player/Dash[/Keyboard/shift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
