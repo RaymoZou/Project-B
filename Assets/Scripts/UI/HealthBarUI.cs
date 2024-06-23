@@ -17,8 +17,8 @@ public class HealthBarUI : MonoBehaviour {
 
   // Start is called before the first frame update
   void Start() {
-    healthBar.maxValue = Health.defaultHealth;
-    healthBar.value = Health.defaultHealth;
+    healthBar.maxValue = Health.HEALTH;
+    healthBar.value = Health.HEALTH;
   }
 
   public void SetHealth(int hp, int playerLayer) {

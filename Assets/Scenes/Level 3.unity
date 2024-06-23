@@ -657,9 +657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3e315a6f3e2e24bb8147391fe0adb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageTimer: 1
   damage: 25
-  currDamageTimer: 0
 --- !u!483693784 &1202374548
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -899,6 +897,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4890796050072122569, guid: e030a91aa8279f347856fd0c4f30a7de, type: 3}
+      propertyPath: damageCooldown
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4890796050072122569, guid: e030a91aa8279f347856fd0c4f30a7de, type: 3}
+      propertyPath: DAMAGE_COOLDOWN
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4890796050072122609, guid: e030a91aa8279f347856fd0c4f30a7de, type: 3}
       propertyPath: m_Name
       value: Player 1
