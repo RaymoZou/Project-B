@@ -903,7 +903,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4890796050072122569, guid: e030a91aa8279f347856fd0c4f30a7de, type: 3}
       propertyPath: DAMAGE_COOLDOWN
-      value: 1
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 4890796050072122609, guid: e030a91aa8279f347856fd0c4f30a7de, type: 3}
       propertyPath: m_Name
@@ -3707,7 +3707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8390110713706465000, guid: 463c93be65d1dc8499d06c7da26a8bc1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 20.99997
+      value: 21.00003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 463c93be65d1dc8499d06c7da26a8bc1, type: 3}

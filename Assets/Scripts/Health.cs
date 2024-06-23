@@ -6,7 +6,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
   public const int HEALTH = 100; // starting health of the player
-  [SerializeField] private float DAMAGE_COOLDOWN = 0.5f; // amount of time before player can be damaged again
+  const float DAMAGE_COOLDOWN = 2.8f; // amount of time before player can be damaged again
   private Color PLAYER_COLOR;
   public static int currHealth = HEALTH;
   private float currCooldown = 0;

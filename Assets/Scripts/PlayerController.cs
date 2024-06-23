@@ -15,28 +15,27 @@ public class PlayerController : MonoBehaviour
   [Header("Ground check")]
   [SerializeField] Transform groundCheck;
   private bool isGrounded = false;
-  private float minDistanceOffGround = 0.1f;
+  private float MIN_GROUND_DISTANCE = 0.1f;
 
   [Header("Movement Settings")]
-  [SerializeField] float topSpeed = 4f;
-  [SerializeField] float accelerationRate = 7.5f;
-  [SerializeField] float deaccelerationRate = 5f;
-  [SerializeField] float jumpForce = 7f;
-  [SerializeField] float maxJumpTime = 0.35f;
-  [SerializeField] float gravityMultiplier = 1.25f;
-  [SerializeField] float gravityScale = 1f;
-  [SerializeField] float downwardForce = 2f;
-  [SerializeField] float velPower = 1.25f;
-  [SerializeField] float maxFallSpeed = 10.0f;
+  const float TOP_SPEED = 4f;
+  const float ACCEL_RATE = 7.5f;
+  const float DEACCEL_RATE = 5f;
+  const float JUMP_FORCE = 7f;
+  const float MAX_JUMP_TIME = 0.35f;
+  const float GRAVITY_MULTIPLIER = 1.25f;
+  const float GRAVITY_SCALE = 1f;
+  const float VEL_POWER = 1.25f;
+  const float MAX_FALL_SPEED = 10.0f;
   private bool isJumping = false;
   private float xInput;
   private float currJumpTime;
 
   [Header("Dash")]
-  [SerializeField] float dashForce = 5.0f;
+  const float DASH_FORCE = 5.0f;
+  const float DASH_DURATION = 0.1f;
+  const float DASH_COOLDOWN = 2f;
   [SerializeField] bool isDashing = false;
-  [SerializeField] float dashDuration = 0.1f;
-  [SerializeField] float dashCooldown = 2f;
   [SerializeField] float currDashCooldown;
   public static event Action<float, int> OnDashChange;
   private float currDashDuration;
@@ -79,11 +78,11 @@ public class PlayerController : MonoBehaviour
     #region Dash
     if (isDashingInput && currDashCooldown < 0)
     {
-      OnDashChange?.Invoke(dashCooldown, gameObject.layer);
-      currDashCooldown = dashCooldown;
+      OnDashChange?.Invoke(DASH_COOLDOWN, gameObject.layer);
+      currDashCooldown = DASH_COOLDOWN;
       isDashing = true;
       rb.gravityScale = 0;
-      currDashDuration = dashDuration;
+      currDashDuration = DASH_DURATION;
     }
     currDashCooldown -= Time.deltaTime;
     #endregion
@@ -92,19 +91,19 @@ public class PlayerController : MonoBehaviour
     // Refactor into the FixedUpdate - DO NOT ADDFORCE IN UPDATE METHOD
     if (isJumpInput && isGrounded && !isJumping)
     {
-      rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+      rb.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
       isJumping = true;
-      currJumpTime = maxJumpTime;
+      currJumpTime = MAX_JUMP_TIME;
     }
 
-    isGrounded = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, minDistanceOffGround, LayerMask.GetMask("Ground"));
-    Debug.DrawRay(groundCheck.transform.position, Vector2.down * minDistanceOffGround, Color.green);
+    isGrounded = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, MIN_GROUND_DISTANCE, LayerMask.GetMask("Ground"));
+    Debug.DrawRay(groundCheck.transform.position, Vector2.down * MIN_GROUND_DISTANCE, Color.green);
     #endregion
 
     #region Animation / Visuals
     if (myAnimator == null) return;
     myAnimator.SetBool("isJump", !isGrounded);
-    myAnimator.SetBool("isWalking", xInput != 0 ? true : false);
+    myAnimator.SetBool("isWalking", xInput != 0);
     myAnimator.SetBool("isDash", isDashing);
     if (xInput == 1) spriteRenderer.flipX = false;
     if (xInput == -1) spriteRenderer.flipX = true;
@@ -119,27 +118,27 @@ public class PlayerController : MonoBehaviour
     if (isDashing)
     {
       float orientation = spriteRenderer.flipX ? -1 : 1;
-      rb.AddForce(orientation * dashForce * Vector2.right, ForceMode2D.Impulse);
+      rb.AddForce(orientation * DASH_FORCE * Vector2.right, ForceMode2D.Impulse);
       currDashDuration -= Time.deltaTime;
       if (currDashDuration < 0)
       {
-        rb.gravityScale = gravityScale;
+        rb.gravityScale = GRAVITY_SCALE;
         isDashing = false;
         currDashDuration = 0;
       }
     } else
     {
-      float targetVelocity = xInput * topSpeed;
+      float targetVelocity = xInput * TOP_SPEED;
       float speedDiff = targetVelocity - rb.velocity.x;
-      float accelRate = (Mathf.Abs(targetVelocity) > 0.01f) ? accelerationRate : deaccelerationRate;
-      float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, velPower) * Mathf.Sign(speedDiff);
+      float accelRate = (Mathf.Abs(targetVelocity) > 0.01f) ? ACCEL_RATE : DEACCEL_RATE;
+      float movement = Mathf.Pow(Mathf.Abs(speedDiff) * accelRate, VEL_POWER) * Mathf.Sign(speedDiff);
       rb.AddForce(movement * Vector2.right);
     }
     #endregion
 
     if (isJumpInput && currJumpTime > 0f && isJumping)
     {
-      rb.AddForce(Vector2.up * jumpForce);
+      rb.AddForce(Vector2.up * JUMP_FORCE);
       isJumping = true;
       currJumpTime -= Time.deltaTime;
     } else
@@ -147,8 +146,8 @@ public class PlayerController : MonoBehaviour
       isJumping = false;
     }
 
-    rb.gravityScale = rb.velocity.y < 0 ? gravityScale * gravityMultiplier : gravityScale;
-    if (rb.velocity.y < -maxFallSpeed) rb.velocity = new Vector2(rb.velocity.x, -maxFallSpeed);
+    rb.gravityScale = rb.velocity.y < 0 ? GRAVITY_SCALE * GRAVITY_MULTIPLIER : GRAVITY_SCALE;
+    if (rb.velocity.y < -MAX_FALL_SPEED) rb.velocity = new Vector2(rb.velocity.x, -MAX_FALL_SPEED);
   }
 
   public void SetInteractable(Interactable interactable)
