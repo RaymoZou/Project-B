@@ -21,7 +21,8 @@ public class HealthBarUI : MonoBehaviour {
     healthBar.value = Health.defaultHealth;
   }
 
-  public void SetHealth(int hp) {
+  public void SetHealth(int hp, int playerLayer) {
+    if (playerLayer != gameObject.layer) return;
     healthBar.value = hp;
   }
 }

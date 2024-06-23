@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
   [SerializeField] float dashDuration = 0.1f;
   [SerializeField] float dashCooldown = 2f;
   [SerializeField] float currDashCooldown;
-  public static event Action<float> OnDashChange;
+  public static event Action<float, int> OnDashChange;
   private float currDashDuration;
 
   [Header("Player Input")]
@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
     #region Dash
     if (isDashingInput && currDashCooldown < 0)
     {
-      OnDashChange?.Invoke(dashCooldown);
+      OnDashChange?.Invoke(dashCooldown, gameObject.layer);
       currDashCooldown = dashCooldown;
       isDashing = true;
       rb.gravityScale = 0;

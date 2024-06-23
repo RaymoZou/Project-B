@@ -26,7 +26,8 @@ public class DashUI : MonoBehaviour {
     PlayerController.OnDashChange -= SetDisabled;
   }
 
-  private void SetDisabled(float disableTime) {
+  private void SetDisabled(float disableTime, int playerLayer) {
+    if (playerLayer != gameObject.layer) return;
     StartCoroutine(SetDisabledCouroutine(disableTime));
   }
 
@@ -34,12 +35,12 @@ public class DashUI : MonoBehaviour {
     animator.Play(loadAnimation.name, -1, 0f);
     animator.speed = loadAnimation.length / disableTime; 
     yield return null;
-    Color originalCOlor = image.color;
-    originalCOlor.a = 0.5f;
-    image.color = originalCOlor;
+    Color originalColor = image.color;
+    originalColor.a = 0.5f;
+    image.color = originalColor;
     yield return new WaitForSeconds(disableTime);
-    originalCOlor.a = 1.0f;
-    image.color = originalCOlor;
+    originalColor.a = 1.0f;
+    image.color = originalColor;
   }
 
 }

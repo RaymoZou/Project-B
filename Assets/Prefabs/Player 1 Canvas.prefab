@@ -13,13 +13,13 @@ GameObject:
   - component: {fileID: 6862573389211883042}
   - component: {fileID: 8164012724052525576}
   - component: {fileID: 901834034803539315}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Key Status
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1525938970302971082
 RectTransform:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 3304135237976646584}
   - component: {fileID: 1058958917643477521}
   - component: {fileID: 2150058159425967520}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: purple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 7371711864494516059}
   - component: {fileID: 840522947939754230}
   - component: {fileID: 8350537515610742840}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: orange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,8 +284,8 @@ GameObject:
   - component: {fileID: 8390110712521209069}
   - component: {fileID: 8390110712521209070}
   - component: {fileID: 8390110712521209071}
-  m_Layer: 5
-  m_Name: Canvas
+  m_Layer: 6
+  m_Name: Player 1 Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -323,7 +323,7 @@ Canvas:
   m_GameObject: {fileID: 8390110712521209064}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 8390110713407741168}
   - component: {fileID: 8390110713407741174}
   - component: {fileID: 8390110713407741175}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBarImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 8390110713706465000}
   - component: {fileID: 8390110713706465006}
   - component: {fileID: 8390110713706465007}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 8390110713979068229}
   - component: {fileID: 8390110713979068251}
   - component: {fileID: 8390110713979068228}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: HealthBarBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 8390110714043719540}
   - component: {fileID: 8390110714043719498}
   - component: {fileID: 1625131311}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: DashIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -753,7 +753,7 @@ GameObject:
   - component: {fileID: 1133808660991658372}
   - component: {fileID: 7581428818397221662}
   - component: {fileID: 8461528616151413553}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: green
   m_TagString: Untagged
   m_Icon: {fileID: 0}
