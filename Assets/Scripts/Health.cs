@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
   private bool isOnCooldown;
   public static event Action<int, int> OnHealthChanged;
   public static event Action<GameObject> OnDeath;
-  public static event Action<Transform> OnSpawn;
+  public static event Action<Transform, int> OnSpawn;
 
   // Start is called before the first frame update
   void Start()
@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
     currHealth = HEALTH;
     PLAYER_COLOR = GetComponent<SpriteRenderer>().color;
     OnHealthChanged?.Invoke(currHealth, gameObject.layer);
-    OnSpawn?.Invoke(transform);
+    OnSpawn?.Invoke(transform, gameObject.layer);
   }
 
   private void Update()
