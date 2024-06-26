@@ -13,9 +13,9 @@ public class PlayerController : MonoBehaviour
   SpriteRenderer spriteRenderer;
 
   [Header("Ground check")]
-  [SerializeField] Transform groundCheck;
   private bool isGrounded = false;
-  private float MIN_GROUND_DISTANCE = 0.1f;
+  const float GROUND_CHECK_OFFSET = -0.50f; // relative to player position
+  const float MIN_GROUND_DISTANCE = 0.1f;
 
   [Header("Movement Settings")]
   const float TOP_SPEED = 4f;
@@ -35,15 +35,15 @@ public class PlayerController : MonoBehaviour
   const float DASH_FORCE = 5.0f;
   const float DASH_DURATION = 0.1f;
   const float DASH_COOLDOWN = 2f;
-  [SerializeField] bool isDashing = false;
-  [SerializeField] float currDashCooldown;
+  private bool isDashing = false;
+  private float currDashCooldown;
   public static event Action<float, int> OnDashChange;
   private float currDashDuration;
 
   [Header("Player Input")]
   private PlayerInput playerInput;
-  public bool isJumpInput;
-  public bool isDashingInput;
+  private bool isJumpInput;
+  private bool isDashingInput;
 
   private Interactable currInteractable;
 
@@ -52,17 +52,22 @@ public class PlayerController : MonoBehaviour
   private void OnDash(InputAction.CallbackContext context) { isDashingInput = true; }
   private void OnDashRelease(InputAction.CallbackContext context) { isDashingInput = false; }
 
-  private void Awake()
+  private void SubscribeEvents()
   {
-    // TODO: refactor subscription into separate setup method
-    playerInput = GetComponent<PlayerInput>();
     playerInput.actions["Jump"].started += OnJump;
     playerInput.actions["Jump"].canceled += OnJumpRelease;
     playerInput.actions["Dash"].started += OnDash;
     playerInput.actions["Dash"].canceled += OnDashRelease;
+  }
+
+  private void Awake()
+  {
+    playerInput = GetComponent<PlayerInput>();
     rb = GetComponent<Rigidbody2D>();
     spriteRenderer = GetComponent<SpriteRenderer>();
     myAnimator = GetComponent<Animator>();
+
+    SubscribeEvents();
   }
 
   // Update is called once per frame
@@ -88,7 +93,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Jump / Ground Check
-    // Refactor into the FixedUpdate - DO NOT ADDFORCE IN UPDATE METHOD
+    // initial jump force
     if (isJumpInput && isGrounded && !isJumping)
     {
       rb.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
@@ -96,8 +101,8 @@ public class PlayerController : MonoBehaviour
       currJumpTime = MAX_JUMP_TIME;
     }
 
-    isGrounded = Physics2D.Raycast(groundCheck.transform.position, Vector2.down, MIN_GROUND_DISTANCE, LayerMask.GetMask("Ground"));
-    Debug.DrawRay(groundCheck.transform.position, Vector2.down * MIN_GROUND_DISTANCE, Color.green);
+    isGrounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down, MIN_GROUND_DISTANCE, LayerMask.GetMask("Ground"));
+    Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down * MIN_GROUND_DISTANCE, Color.green);
     #endregion
 
     #region Animation / Visuals
@@ -105,8 +110,8 @@ public class PlayerController : MonoBehaviour
     myAnimator.SetBool("isJump", !isGrounded);
     myAnimator.SetBool("isWalking", xInput != 0);
     myAnimator.SetBool("isDash", isDashing);
-    if (xInput == 1) spriteRenderer.flipX = false;
-    if (xInput == -1) spriteRenderer.flipX = true;
+    if (xInput > 0) spriteRenderer.flipX = false;
+    if (xInput < 0) spriteRenderer.flipX = true;
     #endregion
   }
 
@@ -136,10 +141,10 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
+    // continuously add force each frame while jump key is held down
     if (isJumpInput && currJumpTime > 0f && isJumping)
     {
       rb.AddForce(Vector2.up * JUMP_FORCE);
-      isJumping = true;
       currJumpTime -= Time.deltaTime;
     } else
     {
