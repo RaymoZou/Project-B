@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 #.editorconfig
 *.editorconfig
+
+#.meta files
+*.meta
