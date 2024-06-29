@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
-{
+public class PlayerController : MonoBehaviour {
 
   Rigidbody2D rb;
   Animator myAnimator;
@@ -52,16 +51,14 @@ public class PlayerController : MonoBehaviour
   private void OnDash(InputAction.CallbackContext context) { isDashingInput = true; }
   private void OnDashRelease(InputAction.CallbackContext context) { isDashingInput = false; }
 
-  private void SubscribeEvents()
-  {
+  private void SubscribeEvents() {
     playerInput.actions["Jump"].started += OnJump;
     playerInput.actions["Jump"].canceled += OnJumpRelease;
     playerInput.actions["Dash"].started += OnDash;
     playerInput.actions["Dash"].canceled += OnDashRelease;
   }
 
-  private void Awake()
-  {
+  private void Awake() {
     playerInput = GetComponent<PlayerInput>();
     rb = GetComponent<Rigidbody2D>();
     spriteRenderer = GetComponent<SpriteRenderer>();
@@ -71,18 +68,15 @@ public class PlayerController : MonoBehaviour
   }
 
   // Update is called once per frame
-  void Update()
-  {
+  void Update() {
     xInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
 
-    if (Input.GetButtonDown("Interact"))
-    {
+    if (Input.GetButtonDown("Interact")) {
       if (currInteractable != null) currInteractable.Interact();
     }
 
     #region Dash
-    if (isDashingInput && currDashCooldown < 0)
-    {
+    if (isDashingInput && currDashCooldown < 0) {
       OnDashChange?.Invoke(DASH_COOLDOWN, gameObject.layer);
       currDashCooldown = DASH_COOLDOWN;
       isDashing = true;
@@ -94,8 +88,7 @@ public class PlayerController : MonoBehaviour
 
     #region Jump / Ground Check
     // initial jump force
-    if (isJumpInput && isGrounded && !isJumping)
-    {
+    if (isJumpInput && isGrounded && !isJumping) {
       rb.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
       isJumping = true;
       currJumpTime = MAX_JUMP_TIME;
@@ -116,23 +109,19 @@ public class PlayerController : MonoBehaviour
   }
 
   // FixedUpdate is called once every 0.02 seconds or 50 times/second by default
-  private void FixedUpdate()
-  {
+  private void FixedUpdate() {
     #region Horizontal Movement
 
-    if (isDashing)
-    {
+    if (isDashing) {
       float orientation = spriteRenderer.flipX ? -1 : 1;
       rb.AddForce(orientation * DASH_FORCE * Vector2.right, ForceMode2D.Impulse);
       currDashDuration -= Time.deltaTime;
-      if (currDashDuration < 0)
-      {
+      if (currDashDuration < 0) {
         rb.gravityScale = GRAVITY_SCALE;
         isDashing = false;
         currDashDuration = 0;
       }
-    } else
-    {
+    } else {
       float targetVelocity = xInput * TOP_SPEED;
       float speedDiff = targetVelocity - rb.velocity.x;
       float accelRate = (Mathf.Abs(targetVelocity) > 0.01f) ? ACCEL_RATE : DEACCEL_RATE;
@@ -142,12 +131,10 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     // continuously add force each frame while jump key is held down
-    if (isJumpInput && currJumpTime > 0f && isJumping)
-    {
+    if (isJumpInput && currJumpTime > 0f && isJumping) {
       rb.AddForce(Vector2.up * JUMP_FORCE);
       currJumpTime -= Time.deltaTime;
-    } else
-    {
+    } else {
       isJumping = false;
     }
 
@@ -155,8 +142,7 @@ public class PlayerController : MonoBehaviour
     if (rb.velocity.y < -MAX_FALL_SPEED) rb.velocity = new Vector2(rb.velocity.x, -MAX_FALL_SPEED);
   }
 
-  public void SetInteractable(Interactable interactable)
-  {
+  public void SetInteractable(Interactable interactable) {
     currInteractable = interactable;
   }
 }

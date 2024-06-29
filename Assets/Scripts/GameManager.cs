@@ -25,8 +25,7 @@ public class GameManager : MonoBehaviour {
     if (instance != null && instance != this) {
       Destroy(gameObject);
       return;
-    }
-    else {
+    } else {
       instance = this;
       DontDestroyOnLoad(gameObject);
     }
@@ -53,8 +52,7 @@ public class GameManager : MonoBehaviour {
     int currSceneIndex = SceneManager.GetActiveScene().buildIndex;
     if (currSceneIndex < SceneManager.sceneCountInBuildSettings - 1) {
       SceneManager.LoadScene(currSceneIndex + 1);
-    }
-    else {
+    } else {
       SceneManager.LoadScene(0);
     }
   }
@@ -65,11 +63,9 @@ public class GameManager : MonoBehaviour {
     Destroy(player);
     if (playerLayer == LayerMask.NameToLayer("Player 1")) {
       Instantiate(instance.playerOnePrefab, instance.playerOneSpawn, Quaternion.identity);
-    }
-    else if (player.layer == LayerMask.NameToLayer("Player 2")) {
+    } else if (player.layer == LayerMask.NameToLayer("Player 2")) {
       Instantiate(instance.playerTwoPrefab, instance.playerTwoSpawn, Quaternion.identity);
-    }
-    else {
+    } else {
       Debug.LogError("Player Layer not known");
     }
 
