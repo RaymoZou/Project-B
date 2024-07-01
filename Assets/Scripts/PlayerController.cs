@@ -1,10 +1,15 @@
 using System;
-using System.Buffers.Text;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Transform))]
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Health))]
+[RequireComponent(typeof(BoxCollider2D))]
+[RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour {
 
   Rigidbody2D rb;
@@ -26,7 +31,11 @@ public class PlayerController : MonoBehaviour {
   const float GRAVITY_SCALE = 1f;
   const float VEL_POWER = 1.25f;
   const float MAX_FALL_SPEED = 10.0f;
+  const float WALL_JUMP_CD = 0.2f;
+  public float WALL_JUMP_X_FORCE = 16.0f; // TODO: change this const
+  public float WALL_JUMP_Y_FORCE = 8.0f;
   private bool isJumping = false;
+  public bool isTouchingWall = false;
   private float xInput;
   private float currJumpTime;
 
@@ -43,6 +52,9 @@ public class PlayerController : MonoBehaviour {
   private PlayerInput playerInput;
   private bool isJumpInput;
   private bool isDashingInput;
+  private Vector2 currDirection;
+  const float WALL_DETECTOR_LENGTH = 0.27f; // wall detection in front of the player
+  public float lastWallJump = 0f;
 
   private Interactable currInteractable;
 
@@ -63,16 +75,33 @@ public class PlayerController : MonoBehaviour {
     rb = GetComponent<Rigidbody2D>();
     spriteRenderer = GetComponent<SpriteRenderer>();
     myAnimator = GetComponent<Animator>();
-
     SubscribeEvents();
   }
 
+  // private void OnCollisionStay2D(Collision2D collider) {
+  //   if (!(collider.gameObject.layer == LayerMask.NameToLayer("Wall"))) return;
+  //   isTouchingWall = true;
+  // }
+
+  // private void OnCollisionExit2D(Collision2D collider) {
+  //   isTouchingWall = false;
+  // }
+
   // Update is called once per frame
   void Update() {
-    xInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
+
+    if (xInput > 0) currDirection = Vector2.right;
+    if (xInput < 0) currDirection = Vector2.left;
+
+    lastWallJump += Time.deltaTime; // increment the wall jump timer
+    if (lastWallJump < WALL_JUMP_CD) {
+      xInput = 0;
+    } else {
+      xInput = playerInput.actions["Move"].ReadValue<Vector2>().x;
+    }
 
     if (Input.GetButtonDown("Interact")) {
-      if (currInteractable != null) currInteractable.Interact();
+      if (currInteractable) currInteractable.Interact();
     }
 
     #region Dash
@@ -94,8 +123,8 @@ public class PlayerController : MonoBehaviour {
       currJumpTime = MAX_JUMP_TIME;
     }
 
-    isGrounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down, MIN_GROUND_DISTANCE, LayerMask.GetMask("Ground"));
-    Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down * MIN_GROUND_DISTANCE, Color.green);
+    isGrounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down, MIN_GROUND_DISTANCE, LayerMask.GetMask("Ground", "Wall"));
+    // Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down * MIN_GROUND_DISTANCE, Color.green);
     #endregion
 
     #region Animation / Visuals
@@ -110,6 +139,16 @@ public class PlayerController : MonoBehaviour {
 
   // FixedUpdate is called once every 0.02 seconds or 50 times/second by default
   private void FixedUpdate() {
+    #region Wall Jump
+    RaycastHit2D wall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), currDirection, WALL_DETECTOR_LENGTH, LayerMask.GetMask("Wall"));
+    isTouchingWall = wall;
+    // Debug.DrawRay(new Vector2(transform.position.x, transform.position.y), currDirection * WALL_DETECTOR_LENGTH, Color.red);
+    // wall jump
+    if (isTouchingWall && isJumpInput) {
+      rb.velocity = new(wall.normal.x * WALL_JUMP_X_FORCE, WALL_JUMP_Y_FORCE);
+      lastWallJump = 0; /// reset jump timer
+    }
+    #endregion
     #region Horizontal Movement
 
     if (isDashing) {
