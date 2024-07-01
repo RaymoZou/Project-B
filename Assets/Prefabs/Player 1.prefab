@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 779162145}
   - component: {fileID: 779162147}
   - component: {fileID: 779162146}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 1340060906}
   - component: {fileID: 1340060905}
   - component: {fileID: 1340060904}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -342,6 +342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c146b7e0bdfc01344bf2b8add4bb46d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTouchingWall: 0
+  lastWallJump: 0
 --- !u!50 &4890796050072122573
 Rigidbody2D:
   serializedVersion: 4
@@ -408,7 +410,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.013077244, y: -0.1266591}
+  m_Offset: {x: 0, y: -0.124684155}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -419,7 +421,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.50395906, y: 0.7466818}
+  m_Size: {x: 0.5, y: 0.7506317}
   m_EdgeRadius: 0
 --- !u!114 &1618875977
 MonoBehaviour:
