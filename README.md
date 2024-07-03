@@ -1,8 +1,8 @@
 # Project B
-- 2D pixel-style platformer prototype.
+- 2D pixel-style platformer prototype
 
 ## Objective & Mechanics
-The objective of the game is to unlock the gate by collecting three different coloured keys in each level (green, purple, and orange) while navigating around a number of different obstacles. Players can save their position by lighting the goblets that can be found at different stages within each level.
+The objective of the game is to unlock the gate by collecting three different coloured keys in each level (green, purple, and orange) while navigating around a number of different obstacles. Players can save their position by lighting the goblets that can be found at various stages within each level.
 
 ## Controls
 - WASD to move
@@ -11,3 +11,6 @@ The objective of the game is to unlock the gate by collecting three different co
 
 ## Additional Information
 - Unity version 2021.3.2f1
+
+## Version v1.0.0-alpha
+- Features a tutorial level that teaches basic player controls and game mechanics
