@@ -90,8 +90,7 @@ public class PlayerController : MonoBehaviour {
   // Update is called once per frame
   void Update() {
 
-    if (xInput > 0) currDirection = Vector2.right;
-    if (xInput < 0) currDirection = Vector2.left;
+    currDirection = spriteRenderer.flipX ? Vector2.left : Vector2.right;
 
     lastWallJump += Time.deltaTime; // increment the wall jump timer
     if (lastWallJump < WALL_JUMP_CD) {
@@ -147,6 +146,7 @@ public class PlayerController : MonoBehaviour {
     if (isTouchingWall && isJumpInput) {
       rb.velocity = new(wall.normal.x * WALL_JUMP_X_FORCE, WALL_JUMP_Y_FORCE);
       lastWallJump = 0; /// reset jump timer
+      spriteRenderer.flipX = !spriteRenderer.flipX; // flip the sprite
     }
     #endregion
     #region Horizontal Movement
