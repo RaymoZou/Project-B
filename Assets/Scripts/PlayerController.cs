@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 
   private void PollInput() {
     jumpInput = playerInput.actions["Jump"].inProgress; // jump input
-    dashInput = playerInput.actions["Dash"].inProgress; // jump input
+    dashInput = playerInput.actions["Dash"].triggered; // jump input
     xInput = playerInput.actions["Move"].ReadValue<Vector2>().x; // x input
     if (lastWallJump < WALL_JUMP_CD) xInput = 0; // (cancel x input)
 
@@ -77,7 +77,6 @@ public class PlayerController : MonoBehaviour {
     currDashCD -= Time.deltaTime;
     lastWallJump += Time.deltaTime; // increment the wall jump timer
     currDirection = spriteRenderer.flipX ? Vector2.left : Vector2.right;
-
 
     #region Dash
     if (dashInput && currDashCD < 0) {
@@ -125,6 +124,7 @@ public class PlayerController : MonoBehaviour {
 
     // dash impulse force should be applied in one frame
     if (isDashing) {
+      rb.velocity = new(rb.velocity.x, 0); // reset the y velocity of the player
       float orientation = spriteRenderer.flipX ? -1 : 1;
       rb.AddForce(orientation * DASH_FORCE * Vector2.right, ForceMode2D.Impulse);
       currDashDuration -= Time.deltaTime;
