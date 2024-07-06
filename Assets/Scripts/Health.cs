@@ -33,7 +33,8 @@ public class Health : MonoBehaviour {
   }
 
   public void DamagePlayer(int damage) {
-    // take damage if not on cooldown
+    // take damage if not on cooldown and player is not already dead
+    if (currHealth <= 0f) return;
     if (currCooldown < 0f) {
       currCooldown = DAMAGE_COOLDOWN;
       currHealth -= damage;
