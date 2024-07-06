@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
+  const float RESPAWN_TIMER = 1.0f;
   private static GameManager instance;
   private Vector3 playerOneSpawn = Vector2.zero;
   private Vector3 playerTwoSpawn = Vector2.zero;
@@ -15,7 +16,7 @@ public class GameManager : MonoBehaviour {
   [SerializeField] private GameObject playerTwoPrefab;
 
   public void Awake() {
-    Health.OnDeath += RespawnPlayer;
+    Health.OnDeath += StartRespawnCoroutine;
     SceneManager.sceneLoaded += OnSceneLoaded;
     RespawnCheckpoint.OnActivate += UpdateSpawn;
     playerOneID = LayerMask.NameToLayer("Player 1");
@@ -31,8 +32,10 @@ public class GameManager : MonoBehaviour {
     }
   }
 
+  private void StartRespawnCoroutine(GameObject player) => StartCoroutine(RespawnPlayer(player));
+
   private void OnDestroy() {
-    Health.OnDeath -= RespawnPlayer;
+    Health.OnDeath -= StartRespawnCoroutine;
     RespawnCheckpoint.OnActivate -= UpdateSpawn;
   }
 
@@ -58,17 +61,18 @@ public class GameManager : MonoBehaviour {
   }
 
   // respawn the correct prefab of the player
-  public static void RespawnPlayer(GameObject player) {
+  private IEnumerator RespawnPlayer(GameObject player) {
     int playerLayer = player.layer;
-    Destroy(player);
+    player.SetActive(false);
+    yield return new WaitForSeconds(RESPAWN_TIMER);
+    Destroy(player); // destroy this after
     if (playerLayer == LayerMask.NameToLayer("Player 1")) {
       Instantiate(instance.playerOnePrefab, instance.playerOneSpawn, Quaternion.identity);
-    } else if (player.layer == LayerMask.NameToLayer("Player 2")) {
+    } else if (playerLayer == LayerMask.NameToLayer("Player 2")) {
       Instantiate(instance.playerTwoPrefab, instance.playerTwoSpawn, Quaternion.identity);
     } else {
       Debug.LogError("Player Layer not known");
     }
-
   }
 
   public static void SwitchScreenResolution() {

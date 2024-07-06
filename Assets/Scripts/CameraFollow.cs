@@ -1,18 +1,42 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// the camera's default z-layer = -1
 public class CameraFollow : MonoBehaviour {
 
   private Transform playerTransform;
-  readonly float followSpeed = 1.5f;
+  const float FOLLOW_SPEED = 1.5f;
+  const float SHAKE_AMP = 0.2f;
+  const float SHAKE_DURATION = 0.3f;
+  public float currShakeDuration;
   private static int numCameras = 0;
+
+  // camera shake when the player dies
+  private IEnumerator Shake() {
+    Vector2 initialPos = transform.localPosition;
+    while (currShakeDuration < SHAKE_DURATION) {
+      transform.localPosition = initialPos + Random.insideUnitCircle * SHAKE_AMP;
+      transform.localPosition = new(transform.localPosition.x, transform.localPosition.y, -1);
+      currShakeDuration += Time.deltaTime;
+      yield return null;
+    }
+    currShakeDuration = 0;
+  }
+
+  private void StartShake(GameObject player) {
+    if (player.layer != gameObject.layer) return;
+    StartCoroutine(Shake());
+  }
 
   private void Awake() {
     numCameras++;
-    // allocate screen space for two cameras
-    Health.OnSpawn += SetPlayerTransform; // reset the playerTransform when the player spawns
+    Health.OnSpawn += SetPlayerTransform;
+    Health.OnDeath += StartShake;
+  }
+
+  private void OnDestroy() {
+    Health.OnSpawn -= SetPlayerTransform;
+    Health.OnDeath -= StartShake;
   }
 
   private void Start() {
@@ -27,7 +51,7 @@ public class CameraFollow : MonoBehaviour {
     }
   }
 
-  // set the player transform the camera will be following
+  // set the player Transform the camera will be following
   private void SetPlayerTransform(Transform transform, int playerLayer) {
     if (playerLayer == gameObject.layer) {
       playerTransform = transform;
@@ -37,7 +61,7 @@ public class CameraFollow : MonoBehaviour {
   // update the assigned player transform every frame
   void Update() {
     if (playerTransform == null) return;
-    Vector3 targetPos = new Vector3(playerTransform.position.x, playerTransform.position.y, transform.position.z);
-    transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * followSpeed);
+    Vector3 targetPos = new(playerTransform.position.x, playerTransform.position.y, -1);
+    transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * FOLLOW_SPEED);
   }
 }

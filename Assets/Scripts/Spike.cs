@@ -9,7 +9,7 @@ using UnityEngine.Rendering.Universal;
 
 public class Spike : MonoBehaviour {
 
-  [SerializeField] int damage = 25;
+  const int DAMAGE = 200;
   new PolygonCollider2D collider;
   private void Awake() {
     collider = GetComponent<PolygonCollider2D>();
@@ -19,17 +19,16 @@ public class Spike : MonoBehaviour {
   private void OnTriggerEnter2D(Collider2D collision) {
     if (collision.tag != "Player") return;
     Health playerHealth = collision.GetComponent<Health>();
-    doDamage(playerHealth, damage);
+    DoDamage(playerHealth, DAMAGE);
   }
 
-  private void OnTriggerStay2D(Collider2D collision) {
+  // private void OnTriggerStay2D(Collider2D collision) {
+  //   if (collision.tag != "Player") return;
+  //   Health playerHealth = collision.GetComponent<Health>();
+  //   doDamage(playerHealth, damage);
+  // }
 
-    if (collision.tag != "Player") return;
-    Health playerHealth = collision.GetComponent<Health>();
-    doDamage(playerHealth, damage);
-  }
-
-  private void doDamage(Health health, int dmg) {
+  private void DoDamage(Health health, int dmg) {
     health.DamagePlayer(dmg);
   }
 }
