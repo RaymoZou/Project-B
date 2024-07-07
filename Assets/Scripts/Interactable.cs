@@ -8,14 +8,14 @@ public abstract class Interactable : MonoBehaviour {
 
   public abstract void Interact();
 
-  private void OnTriggerStay2D(Collider2D collision) {
+  protected virtual void OnTriggerStay2D(Collider2D collision) {
     if (collision.CompareTag("Player")) {
       isInteractable = true;
       collision.gameObject.GetComponent<PlayerController>().SetInteractable(this);
     }
   }
 
-  private void OnTriggerExit2D(Collider2D collision) {
+  protected virtual void OnTriggerExit2D(Collider2D collision) {
     if (collision.CompareTag("Player")) {
       isInteractable = false;
       collision.gameObject.GetComponent<PlayerController>().SetInteractable(null);

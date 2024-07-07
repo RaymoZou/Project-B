@@ -12,6 +12,11 @@ public class GameManager : MonoBehaviour {
   private Vector3 playerTwoSpawn = Vector2.zero;
   private int playerOneID; // the gameObject layer
   private int playerTwoID; // the gameObject layer
+
+  public static float levelTimer;
+  private bool isTimerRunning = false;
+
+  public static Action<float> TimerUpdate;
   [SerializeField] private GameObject playerOnePrefab;
   [SerializeField] private GameObject playerTwoPrefab;
 
@@ -19,6 +24,8 @@ public class GameManager : MonoBehaviour {
     Health.OnDeath += StartRespawnCoroutine;
     SceneManager.sceneLoaded += OnSceneLoaded;
     RespawnCheckpoint.OnActivate += UpdateSpawn;
+    StartLine.OnStart += StartTimer;
+    Portal.Finish += Finish;
     playerOneID = LayerMask.NameToLayer("Player 1");
     playerTwoID = LayerMask.NameToLayer("Player 2");
 
@@ -31,13 +38,25 @@ public class GameManager : MonoBehaviour {
       DontDestroyOnLoad(gameObject);
     }
   }
+  private void OnDestroy() {
+    Health.OnDeath -= StartRespawnCoroutine;
+    SceneManager.sceneLoaded -= OnSceneLoaded;
+    RespawnCheckpoint.OnActivate -= UpdateSpawn;
+    StartLine.OnStart -= StartTimer;
+    Portal.Finish += Finish;
+  }
 
   private void StartRespawnCoroutine(GameObject player) => StartCoroutine(RespawnPlayer(player));
 
-  private void OnDestroy() {
-    Health.OnDeath -= StartRespawnCoroutine;
-    RespawnCheckpoint.OnActivate -= UpdateSpawn;
+  private void StartTimer() { isTimerRunning = true; }
+
+  private void Update() {
+    if (isTimerRunning) {
+      levelTimer += Time.deltaTime;
+      TimerUpdate?.Invoke(levelTimer);
+    }
   }
+
 
   public void UpdateSpawn(Vector2 spawnPos, int playerLayer) {
     if (playerLayer == playerOneID) playerOneSpawn = spawnPos;
@@ -46,8 +65,15 @@ public class GameManager : MonoBehaviour {
 
   // initialize spawns to zero on level load
   private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    levelTimer = 0;
+    isTimerRunning = false;
     UpdateSpawn(Vector2.zero, playerOneID);
     UpdateSpawn(Vector2.zero, playerTwoID);
+  }
+
+  private void Finish() {
+    Debug.Log("Level Finished with Time: " + levelTimer);
+    isTimerRunning = false;
   }
 
   // load the next level defined in build settings
@@ -60,16 +86,22 @@ public class GameManager : MonoBehaviour {
     }
   }
 
+  public static void LoadTutorial() {
+    SceneManager.LoadScene("Tutorial Level");
+  }
+
   // respawn the correct prefab of the player
   private IEnumerator RespawnPlayer(GameObject player) {
     int playerLayer = player.layer;
     player.SetActive(false);
     yield return new WaitForSeconds(RESPAWN_TIMER);
     Destroy(player); // destroy this after
-    if (playerLayer == LayerMask.NameToLayer("Player 1")) {
-      Instantiate(instance.playerOnePrefab, instance.playerOneSpawn, Quaternion.identity);
-    } else if (playerLayer == LayerMask.NameToLayer("Player 2")) {
-      Instantiate(instance.playerTwoPrefab, instance.playerTwoSpawn, Quaternion.identity);
+    if (playerLayer == playerOneID) {
+      GameObject newPlayer = Instantiate(instance.playerOnePrefab, instance.playerOneSpawn, Quaternion.identity);
+      newPlayer.layer = playerOneID;
+    } else if (playerLayer == playerTwoID) {
+      GameObject newPlayer = Instantiate(instance.playerTwoPrefab, instance.playerTwoSpawn, Quaternion.identity);
+      newPlayer.layer = playerTwoID;
     } else {
       Debug.LogError("Player Layer not known");
     }

@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc7c5db9bda6264287dc84a0ccac99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 200
   despawnTimer: 10
 --- !u!61 &7585915667821659921
 BoxCollider2D:

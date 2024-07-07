@@ -422,7 +422,7 @@ Transform:
   - {fileID: 1202374545}
   - {fileID: 1666738803}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1106926363
 PrefabInstance:
@@ -546,7 +546,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1184173158
 PrefabInstance:
@@ -668,7 +668,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3e315a6f3e2e24bb8147391fe0adb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
 --- !u!483693784 &1202374548
 TilemapRenderer:
   m_ObjectHideFlags: 0

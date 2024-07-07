@@ -40,15 +40,15 @@ public class CameraFollow : MonoBehaviour {
   }
 
   private void Start() {
-    if (numCameras == 1) {
-      GetComponent<Camera>().rect = new Rect(0f, 0f, 1f, 1f);
-    } else if (numCameras == 2) {
-      if (gameObject.layer == LayerMask.NameToLayer("Player 1")) {
-        GetComponent<Camera>().rect = new Rect(0f, 0f, 0.5f, 1f);
-      } else if (gameObject.layer == LayerMask.NameToLayer("Player 2")) {
-        GetComponent<Camera>().rect = new Rect(0.5f, 0f, 0.5f, 1f);
-      }
-    }
+    // if (numCameras == 1) {
+    //   GetComponent<Camera>().rect = new Rect(0f, 0f, 1f, 1f);
+    // } else if (numCameras == 2) {
+    //   if (gameObject.layer == LayerMask.NameToLayer("Player 1")) {
+    //     GetComponent<Camera>().rect = new Rect(0f, 0f, 0.5f, 1f);
+    //   } else if (gameObject.layer == LayerMask.NameToLayer("Player 2")) {
+    //     GetComponent<Camera>().rect = new Rect(0.5f, 0f, 0.5f, 1f);
+    //   }
+    // }
   }
 
   // set the player Transform the camera will be following
