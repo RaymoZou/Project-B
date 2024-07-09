@@ -74,6 +74,11 @@ public class GameManager : MonoBehaviour {
   private void Finish() {
     Debug.Log("Level Finished with Time: " + levelTimer);
     isTimerRunning = false;
+
+    // if in the Tutorial Level scene
+    if (SceneManager.GetActiveScene().name == "Tutorial Level") {
+      SceneManager.LoadScene("Title");
+    }
   }
 
   // load the next level defined in build settings

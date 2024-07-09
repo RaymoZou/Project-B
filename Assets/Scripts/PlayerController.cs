@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour {
   const float ACCEL_RATE = 7.5f;
   const float DEACCEL_RATE = 5f;
   const float JUMP_FORCE = 7f;
-  const float MAX_JUMP_TIME = 0.35f;
+  // const float MAX_JUMP_TIME = 0.35f;
   const float VEL_POWER = 1.25f;
   const float MAX_FALL_SPEED = 10.0f;
   const float WALL_JUMP_CD = 0.2f;
@@ -35,8 +35,6 @@ public class PlayerController : MonoBehaviour {
   const float WALL_DETECTOR_LENGTH = 0.27f; // wall detection in front of the player
 
   // player state
-  private bool isJumping = false;
-  // public bool isTouchingWall = false;
   private bool isGrounded = false;
   private bool isDashing = false;
   private float xInput;
@@ -46,6 +44,7 @@ public class PlayerController : MonoBehaviour {
   private float currDashDuration;
   private Vector2 currDirection;
   public static event Action<float, int> OnDashChange;
+  private float timeSinceGrounded;
 
   private PlayerInput playerInput;
   private bool jumpInput;
@@ -61,7 +60,7 @@ public class PlayerController : MonoBehaviour {
 
 
   private void PollInput() {
-    jumpInput = playerInput.actions["Jump"].inProgress; // jump input
+    jumpInput = playerInput.actions["Jump"].triggered; // jump input
     dashInput = playerInput.actions["Dash"].triggered; // jump input
     xInput = playerInput.actions["Move"].ReadValue<Vector2>().x; // x input
     if (lastWallJump < WALL_JUMP_CD) xInput = 0; // (cancel x input)
@@ -89,14 +88,20 @@ public class PlayerController : MonoBehaviour {
 
     #region Jump / Ground Check
     // initial jump force
-    if (jumpInput && isGrounded && !isJumping) {
-      rb.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
-      isJumping = true;
-      currJumpTime = 0;
+    if (jumpInput && timeSinceGrounded < 0.4f) {
+      // rb.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse); // force based jump
+      rb.velocity = new(rb.velocity.x, JUMP_FORCE); // velocity based jump
+      // isJumping = true;
+      // currJumpTime = 0;
     }
 
     isGrounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down, MIN_GROUND_DISTANCE, LayerMask.GetMask("Ground", "Wall"));
-    Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down * MIN_GROUND_DISTANCE, Color.green);
+    if (isGrounded) {
+      timeSinceGrounded = 0;
+    } else {
+      timeSinceGrounded += Time.deltaTime;
+    }
+    // Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down * MIN_GROUND_DISTANCE, Color.green);
     #endregion
 
     #region Wall Jump
@@ -125,7 +130,7 @@ public class PlayerController : MonoBehaviour {
 
     // dash impulse force should be applied in one frame
     if (isDashing) {
-      rb.velocity = new(rb.velocity.x, 0); // reset the y velocity of the player
+      rb.velocity = new(rb.velocity.x, 0); // freeze the y velocity of player during dash
       float orientation = spriteRenderer.flipX ? -1 : 1;
       rb.AddForce(orientation * DASH_FORCE * Vector2.right, ForceMode2D.Impulse);
       currDashDuration -= Time.deltaTime;
@@ -142,17 +147,8 @@ public class PlayerController : MonoBehaviour {
     }
     #endregion
 
-    // continuously add force each frame while jump key is held down
-    if (jumpInput && currJumpTime < MAX_JUMP_TIME && isJumping) {
-      rb.AddForce(Vector2.up * JUMP_FORCE);
-      currJumpTime += Time.deltaTime;
-    } else {
-      isJumping = false;
-
-
-      // clamp fall speed
-      if (rb.velocity.y < -MAX_FALL_SPEED) rb.velocity = new Vector2(rb.velocity.x, -MAX_FALL_SPEED);
-    }
+    // fall speed clamp
+    if (rb.velocity.y < -MAX_FALL_SPEED) rb.velocity = new Vector2(rb.velocity.x, -MAX_FALL_SPEED);
   }
 
   public void SetInteractable(Interactable interactable) {
