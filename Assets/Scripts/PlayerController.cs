@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,16 +31,14 @@ public class PlayerController : MonoBehaviour {
   const float DASH_FORCE = 6.0f;
   const float DASH_DURATION = 0.1f;
   const float DASH_CD = 2f;
-  const float WALL_DETECTOR_LENGTH = 0.27f; // wall detection in front of the player
+  // const float WALL_DETECTOR_LENGTH = 0.27f; // wall detection in front of the player
 
   // player state
   public bool isGrounded = false;
+  public bool isWall;
   public bool isDashing = false;
   private float xInput;
-  // private float currJumpTime;
-  // private float currDashCD;
   public float lastWallJump = 0f;
-  // private float currDashDuration;
   private Vector2 currDirection;
   public static event Action<float, int> OnDashChange;
   private float timeSinceGrounded;
@@ -52,12 +49,12 @@ public class PlayerController : MonoBehaviour {
   public int jumpCount;
   public bool canDash = true;
   private Interactable currInteractable;
-  private RaycastHit2D wall; // current wall the player is touching
   public float MAX_JUMP_TIME = 0.35f;
   public float JUMP_FORCE = 8f;
   public bool isJumping = false;
   public float jumpTime;
-
+  [SerializeField] BoxCollider2D wallCheck;
+  [SerializeField] BoxCollider2D groundCheck;
   private void Awake() {
     playerInput = GetComponent<PlayerInput>();
     rb = GetComponent<Rigidbody2D>();
@@ -91,7 +88,7 @@ public class PlayerController : MonoBehaviour {
 
   // check if player is grounded
   void CheckGrounded() {
-    isGrounded = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down, MIN_GROUND_DISTANCE, LayerMask.GetMask("Ground", "Wall"));
+    isGrounded = groundCheck.IsTouchingLayers(LayerMask.GetMask("Ground", "Wall"));
     if (isGrounded) {
       isJumping = false;
       jumpCount = 0; // reset jump count
@@ -102,29 +99,23 @@ public class PlayerController : MonoBehaviour {
     // Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + GROUND_CHECK_OFFSET), Vector2.down * MIN_GROUND_DISTANCE, Color.green);
   }
 
-  // check if player is touching a wall
   void CheckWall() {
-    wall = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), currDirection, WALL_DETECTOR_LENGTH, LayerMask.GetMask("Wall"));
-    // Debug.DrawRay(new Vector2(transform.position.x, transform.position.y), currDirection * WALL_DETECTOR_LENGTH, Color.red);
+    isWall = wallCheck.IsTouchingLayers(LayerMask.GetMask("Ground", "Wall"));
   }
 
   void WallJump() {
-    // wall jump
-    currDirection = spriteRenderer.flipX ? Vector2.left : Vector2.right; // get direction
-    if (wall && jumpInput) {
-      rb.velocity = new(wall.normal.x * WALL_JUMP_X_FORCE, WALL_JUMP_Y_FORCE);
+    if (isWall && jumpInput) {
+      rb.velocity = new(-transform.localScale.x * WALL_JUMP_X_FORCE, WALL_JUMP_Y_FORCE);
       lastWallJump = 0; /// reset jump timer
-      spriteRenderer.flipX = !spriteRenderer.flipX; // flip the sprite
+      transform.localScale = new(-transform.localScale.x, transform.localScale.y);
     } else {
-      lastWallJump += Time.deltaTime; // increment the wall jump timer
+      lastWallJump += Time.deltaTime;
     }
   }
 
   void Jump() {
-    if (jumpInput && isGrounded && !isJumping) {
+    if (jumpInput && timeSinceGrounded < 0.1f) {
       rb.AddForce(Vector2.up * JUMP_FORCE, ForceMode2D.Impulse);
-      // isJumping = true;
-      // jumpTime = 0;
     }
   }
 
@@ -132,12 +123,14 @@ public class PlayerController : MonoBehaviour {
     animator.SetBool("isJump", !isGrounded);
     animator.SetBool("isWalking", xInput != 0);
     animator.SetBool("isDash", isDashing);
-    if (xInput > 0) spriteRenderer.flipX = false;
-    if (xInput < 0) spriteRenderer.flipX = true;
+    if (xInput < 0) transform.localScale = new Vector2(-1, transform.localScale.y);
+    if (xInput > 0) transform.localScale = new Vector2(1, transform.localScale.y);
+    // if (xInput > 0) spriteRenderer.flipX = false;
+    // if (xInput < 0) spriteRenderer.flipX = true;
   }
 
   void Dash() {
-    if (dashInput && canDash && !isGrounded) {
+    if (dashInput && canDash) {
       StartCoroutine(DashCooldown(DASH_CD));
       StartCoroutine(Dash(DASH_DURATION));
       OnDashChange?.Invoke(DASH_CD, gameObject.layer);
@@ -145,11 +138,12 @@ public class PlayerController : MonoBehaviour {
   }
 
   void Update() {
+    currDirection = transform.localScale.x > 0 ? Vector2.right : Vector2.left; // get direction
     PollInput();
     CheckGrounded();
-    CheckWall();
     Dash();
     Jump();
+    CheckWall();
     WallJump();
     UpdateVisuals();
   }
@@ -159,7 +153,7 @@ public class PlayerController : MonoBehaviour {
     // if player is dashing, then surrender movement for duration of dash
     if (isDashing) {
       rb.velocity = new(rb.velocity.x, 0); // freeze the y velocity of player during dash
-      float orientation = spriteRenderer.flipX ? -1 : 1;
+      float orientation = transform.localScale.x < 0 ? -1 : 1;
       rb.AddForce(orientation * DASH_FORCE * Vector2.right, ForceMode2D.Impulse);
     }
 

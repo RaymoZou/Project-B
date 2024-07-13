@@ -61,6 +61,7 @@ SpriteAtlas:
   - {fileID: 1658814939, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 1738417023, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: -1072676070, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
+  - {fileID: 1723772465, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 1892699042, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 982025786, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 97217141, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
@@ -74,10 +75,14 @@ SpriteAtlas:
   - {fileID: -359528352, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: -1956787410, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 862951126, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
+  - {fileID: -408392336, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 852605091, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
+  - {fileID: -1080979903, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: -2004744003, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
+  - {fileID: -216518758, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: -1032192026, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 715497060, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
+  - {fileID: 359376001, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: -1361652777, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 701069791, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 1287264391, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
@@ -138,6 +143,7 @@ SpriteAtlas:
   - spritesheet_17
   - spritesheet_27
   - spritesheet_16
+  - spritesheet_24
   - spritesheet_15
   - spritesheet_25
   - spritesheet_39
@@ -151,10 +157,14 @@ SpriteAtlas:
   - spritesheet_21
   - spritesheet_18
   - purple
+  - spritesheet_31
   - spritesheet_30
+  - spritesheet_33
   - spritesheet_28
+  - spritesheet_32
   - spritesheet_29
   - spritesheet_35
+  - spritesheet_34
   - spritesheet_37
   - spritesheet_36
   - portal_lit
