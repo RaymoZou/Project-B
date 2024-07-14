@@ -13,22 +13,28 @@ public class Health : MonoBehaviour {
   public static event Action<int, int> OnHealthChanged;
   public static event Action<GameObject> OnDeath;
   public static event Action<Transform, int> OnSpawn;
+  SpriteRenderer spriteRenderer;
+  new ParticleSystem particleSystem;
 
-  // Start is called before the first frame update
+  private void Awake() {
+    spriteRenderer = GetComponent<SpriteRenderer>();
+    particleSystem = GetComponent<ParticleSystem>();
+  }
+
   void Start() {
     currHealth = HEALTH;
-    PLAYER_COLOR = GetComponent<SpriteRenderer>().color;
+    PLAYER_COLOR = spriteRenderer.color;
     OnHealthChanged?.Invoke(currHealth, gameObject.layer);
     OnSpawn?.Invoke(transform, gameObject.layer);
   }
 
   private void Update() {
     currCooldown -= Time.deltaTime;
-    isOnCooldown = currCooldown < 0 ? false : true;
+    isOnCooldown = currCooldown >= 0;
     if (isOnCooldown) {
-      GetComponent<SpriteRenderer>().color = new Color(PLAYER_COLOR.r, PLAYER_COLOR.g, PLAYER_COLOR.b, 0.5f);
+      spriteRenderer.color = new Color(PLAYER_COLOR.r, PLAYER_COLOR.g, PLAYER_COLOR.b, 0.5f);
     } else {
-      GetComponent<SpriteRenderer>().color = PLAYER_COLOR;
+      spriteRenderer.color = PLAYER_COLOR;
     }
   }
 
@@ -40,6 +46,7 @@ public class Health : MonoBehaviour {
       currHealth -= damage;
       OnHealthChanged?.Invoke(currHealth, gameObject.layer);
     }
+    // die
     if (currHealth <= 0f) {
       OnDeath?.Invoke(gameObject);
     }

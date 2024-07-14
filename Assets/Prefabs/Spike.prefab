@@ -99,7 +99,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb3e315a6f3e2e24bb8147391fe0adb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 200
 --- !u!60 &1116788577874305186
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -126,10 +125,10 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -0.3554325, y: 0.23043346}
-      - {x: -0.5, y: -0.5}
-      - {x: 0.5, y: -0.5}
+      - {x: -0.43014145, y: -0.5}
+      - {x: 0.43430328, y: -0.4978807}
       - {x: 0.39214897, y: 0.009056091}
-      - {x: 0.3640709, y: 0.11569834}
+      - {x: 0.34923553, y: 0.052119017}
 --- !u!114 &1116788577874305189
 MonoBehaviour:
   m_ObjectHideFlags: 0

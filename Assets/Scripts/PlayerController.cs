@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour {
   Animator animator;
   SpriteRenderer spriteRenderer;
 
-  const float GROUND_CHECK_OFFSET = -0.50f; // relative to player position
-  const float MIN_GROUND_DISTANCE = 0.1f;
+  // const float GROUND_CHECK_OFFSET = -0.50f; // relative to player position
+  // const float MIN_GROUND_DISTANCE = 0.1f;
 
   const float TOP_SPEED = 4f;
   const float ACCEL_RATE = 7.5f;
@@ -123,6 +123,7 @@ public class PlayerController : MonoBehaviour {
     animator.SetBool("isJump", !isGrounded);
     animator.SetBool("isWalking", xInput != 0);
     animator.SetBool("isDash", isDashing);
+    animator.SetBool("isSlide", isWall);
     if (xInput < 0) transform.localScale = new Vector2(-1, transform.localScale.y);
     if (xInput > 0) transform.localScale = new Vector2(1, transform.localScale.y);
     // if (xInput > 0) spriteRenderer.flipX = false;
