@@ -8,8 +8,8 @@ public class LightBlock : MonoBehaviour {
   [SerializeField] Sprite inactiveSprite;
   [SerializeField] Sprite activeSprite;
 
-  [SerializeField] float inactiveIntensity = 0.1f;
-  [SerializeField] float activeIntensity = 0.6f;
+  [SerializeField] float INACTIVE_INTENSITY = 0.1f;
+  [SerializeField] float ACTIVE_INTENSITY = 0.6f;
 
   [SerializeField] BoxCollider2D solidCollider;
   private CircleCollider2D bulletCollider;
@@ -24,21 +24,21 @@ public class LightBlock : MonoBehaviour {
   }
 
   private void Start() {
-    blockLight.intensity = inactiveIntensity;
+    blockLight.intensity = INACTIVE_INTENSITY;
   }
 
   private void OnTriggerStay2D(Collider2D other) {
-    if (other.GetComponent<BulletScript>() == null) return;
+    if (!other.GetComponent<BulletScript>()) return;
     spriteRenderer.sprite = activeSprite;
     solidCollider.enabled = true;
-    blockLight.intensity = activeIntensity;
+    blockLight.intensity = ACTIVE_INTENSITY;
   }
 
   private void OnTriggerExit2D(Collider2D other) {
-    if (other.GetComponent<BulletScript>() == null) return;
+    if (!other.GetComponent<BulletScript>()) return;
     spriteRenderer.sprite = inactiveSprite;
     solidCollider.enabled = false;
-    blockLight.intensity = inactiveIntensity;
+    blockLight.intensity = INACTIVE_INTENSITY;
   }
 
 }
