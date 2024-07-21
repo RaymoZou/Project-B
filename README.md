@@ -2,7 +2,7 @@
 - 2D pixel-style platformer prototype
 
 ## Objective & Mechanics
-The objective of the game is to unlock the gate by collecting three different coloured keys in each level (green, purple, and orange) while navigating around a number of different obstacles. Players can save their position by lighting the goblets that can be found at various stages within each level.
+The objective of the game is to complete the level as fast as possible while dodging deadly obstacle.
 
 ## Controls
 - WASD to move
