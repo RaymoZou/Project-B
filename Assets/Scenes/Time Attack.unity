@@ -3158,6 +3158,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turret
       objectReference: {fileID: 0}
+    - target: {fileID: 7760666387401483242, guid: a3c5d9082a830654ba251eb96bc5e4e9, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7760666387401483242, guid: a3c5d9082a830654ba251eb96bc5e4e9, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 282152890, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
+    - target: {fileID: 7760666387401483242, guid: a3c5d9082a830654ba251eb96bc5e4e9, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7760666387401483243, guid: a3c5d9082a830654ba251eb96bc5e4e9, type: 3}
       propertyPath: m_RootOrder
       value: 4
