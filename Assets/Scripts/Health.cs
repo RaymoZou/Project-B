@@ -14,11 +14,9 @@ public class Health : MonoBehaviour {
   public static event Action<GameObject> OnDeath;
   public static event Action<Transform, int> OnSpawn;
   SpriteRenderer spriteRenderer;
-  new ParticleSystem particleSystem;
 
   private void Awake() {
     spriteRenderer = GetComponent<SpriteRenderer>();
-    particleSystem = GetComponent<ParticleSystem>();
   }
 
   void Start() {

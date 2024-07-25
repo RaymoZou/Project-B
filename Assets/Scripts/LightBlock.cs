@@ -28,14 +28,14 @@ public class LightBlock : MonoBehaviour {
   }
 
   private void OnTriggerStay2D(Collider2D other) {
-    if (!other.GetComponent<BulletScript>()) return;
+    if (!other.GetComponent<Bullet>()) return;
     spriteRenderer.sprite = activeSprite;
     solidCollider.enabled = true;
     blockLight.intensity = ACTIVE_INTENSITY;
   }
 
   private void OnTriggerExit2D(Collider2D other) {
-    if (!other.GetComponent<BulletScript>()) return;
+    if (!other.GetComponent<Bullet>()) return;
     spriteRenderer.sprite = inactiveSprite;
     solidCollider.enabled = false;
     blockLight.intensity = INACTIVE_INTENSITY;
