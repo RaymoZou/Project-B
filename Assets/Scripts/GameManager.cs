@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,8 +9,7 @@ public class GameManager : MonoBehaviour {
   private static GameManager instance;
   private Vector3 playerOneSpawn = Vector2.zero;
   private Vector3 playerTwoSpawn = Vector2.zero;
-  private int playerOneID; // the gameObject layer
-  private int playerTwoID; // the gameObject layer
+  private int PLAYER_MASK;
 
   public static float levelTimer;
   private bool isTimerRunning = false;
@@ -26,8 +24,8 @@ public class GameManager : MonoBehaviour {
     RespawnCheckpoint.OnActivate += UpdateSpawn;
     StartLine.OnStart += StartTimer;
     Portal.Finish += Finish;
-    playerOneID = LayerMask.NameToLayer("Player 1");
-    playerTwoID = LayerMask.NameToLayer("Player 2");
+
+    PLAYER_MASK = LayerMask.NameToLayer("Player");
 
     // singleton pattern
     if (instance != null && instance != this) {
@@ -59,16 +57,16 @@ public class GameManager : MonoBehaviour {
 
 
   public void UpdateSpawn(Vector2 spawnPos, int playerLayer) {
-    if (playerLayer == playerOneID) playerOneSpawn = spawnPos;
-    if (playerLayer == playerTwoID) playerTwoSpawn = spawnPos;
+    if (playerLayer == PLAYER_MASK) playerOneSpawn = spawnPos;
+    if (playerLayer == PLAYER_MASK) playerTwoSpawn = spawnPos;
   }
 
   // initialize spawns to zero on level load
   private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
     levelTimer = 0;
     isTimerRunning = false;
-    UpdateSpawn(Vector2.zero, playerOneID);
-    UpdateSpawn(Vector2.zero, playerTwoID);
+    UpdateSpawn(Vector2.zero, PLAYER_MASK);
+    UpdateSpawn(Vector2.zero, PLAYER_MASK);
   }
 
   private void Finish() {
@@ -101,12 +99,12 @@ public class GameManager : MonoBehaviour {
     player.SetActive(false);
     yield return new WaitForSeconds(RESPAWN_TIMER);
     Destroy(player); // destroy this after
-    if (playerLayer == playerOneID) {
+    if (playerLayer == PLAYER_MASK) {
       GameObject newPlayer = Instantiate(instance.playerOnePrefab, instance.playerOneSpawn, Quaternion.identity);
-      newPlayer.layer = playerOneID;
-    } else if (playerLayer == playerTwoID) {
+      newPlayer.layer = PLAYER_MASK;
+    } else if (playerLayer == PLAYER_MASK) {
       GameObject newPlayer = Instantiate(instance.playerTwoPrefab, instance.playerTwoSpawn, Quaternion.identity);
-      newPlayer.layer = playerTwoID;
+      newPlayer.layer = PLAYER_MASK;
     } else {
       Debug.LogError("Player Layer not known");
     }

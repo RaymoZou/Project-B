@@ -17,11 +17,9 @@ public class Boulder : MonoBehaviour {
   }
 
   // TODO: bounce on the platforms
-  // TOOD: need to merge Player 1 and Player 2 layers
   private void OnCollisionEnter2D(Collision2D other) {
-    if (other.gameObject.tag != "Player") return;
     Health playerHealth = other.gameObject.GetComponent<Health>();
     playerHealth.DamagePlayer(DAMAGE);
-    rb.velocity = Vector2.zero; // reset fall speed
+    rb.velocity = Vector2.zero;
   }
 }

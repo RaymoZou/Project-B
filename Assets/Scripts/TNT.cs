@@ -38,7 +38,7 @@ public class TNT : MonoBehaviour {
     cover.color = Color.white;
     explosionIndicator.SetActive(true);
     yield return new WaitForSeconds(0.25f);
-    Collider2D[] players = Physics2D.OverlapCircleAll(transform.position, EXPLOSION_RADIUS, LayerMask.GetMask("Player 1"));
+    Collider2D[] players = Physics2D.OverlapCircleAll(transform.position, EXPLOSION_RADIUS, LayerMask.GetMask("Player"));
     foreach (Collider2D player in players) {
       Debug.Log(player.name);
       Health health = player.GetComponent<Health>();
