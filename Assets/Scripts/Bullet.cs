@@ -18,9 +18,8 @@ public class Bullet : MonoBehaviour, IDamageable {
     Health health = collision.gameObject.GetComponent<Health>();
     if (health) { // collision has health component
       DoDamage(health);
-    } else {
-      Destroy(gameObject);
     }
+    Destroy(gameObject);
   }
 
   public void DoDamage(Health healthObject) {
