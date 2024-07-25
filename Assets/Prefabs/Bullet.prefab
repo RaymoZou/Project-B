@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5432948120067469110}
   - component: {fileID: -6441043651913571201}
   - component: {fileID: 7585915667821659921}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,8 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efc7c5db9bda6264287dc84a0ccac99f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 200
-  despawnTimer: 10
 --- !u!61 &7585915667821659921
 BoxCollider2D:
   m_ObjectHideFlags: 0

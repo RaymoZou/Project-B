@@ -4885,4 +4885,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8acf926dd6efe9844a894c25b24a6735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boulder: {fileID: 0}
+  boulderPrefab: {fileID: 1601215204311112822, guid: fd8caed56f8c07c40b140a17c0567501, type: 3}

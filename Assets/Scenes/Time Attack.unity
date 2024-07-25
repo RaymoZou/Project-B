@@ -971,7 +971,7 @@ GameObject:
   - component: {fileID: 272020134}
   - component: {fileID: 272020136}
   - component: {fileID: 272020135}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: Foreground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12319,7 +12319,7 @@ GameObject:
   - component: {fileID: 1780638025}
   - component: {fileID: 1780638024}
   - component: {fileID: 1780638023}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
