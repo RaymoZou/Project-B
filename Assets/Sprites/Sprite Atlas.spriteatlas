@@ -70,6 +70,7 @@ SpriteAtlas:
   - {fileID: 862951126, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: -690535322, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 6057590, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
+  - {fileID: -143736493, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 19314957, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 811763850, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 282152890, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
@@ -80,12 +81,6 @@ SpriteAtlas:
   - {fileID: -1557916876, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: -1492831634, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: -479821525, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
-  - {fileID: -1202552615, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
-  - {fileID: -267903710, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
-  - {fileID: 1425939344, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
-  - {fileID: 1213719717, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
-  - {fileID: 744233142, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
-  - {fileID: 462675458, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: -1607559134, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 293028066, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
   - {fileID: 2043826865, guid: 94db8d6fb4a7d254996f2b0215696ca3, type: 3}
@@ -112,6 +107,7 @@ SpriteAtlas:
   - purple
   - portal_lit
   - spike
+  - boulder
   - g
   - green_key
   - turret
@@ -122,12 +118,6 @@ SpriteAtlas:
   - block1
   - purple_key
   - spritesheet_0
-  - spritesheet_1
-  - spritesheet_2
-  - spritesheet_3
-  - spritesheet_4
-  - spritesheet_5
-  - spritesheet_6
   - spritesheet_7
   - spritesheet_8
   - spritesheet_9
