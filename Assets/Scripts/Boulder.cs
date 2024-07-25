@@ -12,8 +12,8 @@ public class Boulder : MonoBehaviour {
   }
 
   private void Update() {
-    // clamp fall speed
-    if (rb.velocity.y < -MAX_SPEED) rb.velocity = new(rb.velocity.x, -MAX_SPEED);
+    if (rb.velocity.y < -MAX_SPEED) rb.velocity = new(rb.velocity.x, -MAX_SPEED); // clamp fall speed
+    if (transform.position.y < -50) Destroy(gameObject); // destory boulder if out of bounds
   }
 
   // TODO: bounce on the platforms

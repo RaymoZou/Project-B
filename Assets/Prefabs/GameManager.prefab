@@ -182,7 +182,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 2
+      scalar: 4
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -621,7 +621,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.9
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -880,7 +880,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 20
+      scalar: 25
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4835,6 +4835,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4501958185044640907}
   - component: {fileID: 4501958185044640906}
+  - component: {fileID: 168210171}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4872,3 +4873,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerOnePrefab: {fileID: 4890796050072122609, guid: e030a91aa8279f347856fd0c4f30a7de, type: 3}
   playerTwoPrefab: {fileID: 4890796050072122609, guid: 9c774bbdfc3f64b4e9fdec929e22a6f0, type: 3}
+--- !u!114 &168210171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501958185044640905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8acf926dd6efe9844a894c25b24a6735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boulder: {fileID: 0}

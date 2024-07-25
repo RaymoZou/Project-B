@@ -4,21 +4,19 @@ using UnityEngine;
 
 [RequireComponent(typeof(ParticleSystem))]
 public class ParticleManager : MonoBehaviour {
-  ParticleSystem particleSystem;
+  ParticleSystem myParticleSystem;
 
   private void Awake() {
     Health.OnDeath += SpawnParticles;
-    particleSystem = GetComponent<ParticleSystem>();
+    myParticleSystem = GetComponent<ParticleSystem>();
   }
 
   private void OnDestroy() {
     Health.OnDeath -= SpawnParticles;
   }
 
-  // Go to player transform and play the particle effect
   private void SpawnParticles(GameObject player) {
-    Debug.Log("the player died at: " + player.transform.position);
     gameObject.transform.position = player.transform.position;
-    particleSystem.Play();
+    myParticleSystem.Play();
   }
 }
