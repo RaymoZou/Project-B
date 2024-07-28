@@ -49,8 +49,9 @@ public class TNT : MonoBehaviour {
     Destroy(gameObject);
   }
 
+  // TODO: remove player check - handled by physics layer
   private void OnCollisionEnter2D(Collision2D other) {
-    if (other.gameObject.tag == "Player") {
+    if (other.gameObject.tag == "Player 1" || other.gameObject.tag == "Player 2") {
       StartCoroutine(Flash());
       StartCoroutine(Explode());
     }

@@ -87,6 +87,13 @@ public class GameManager : MonoBehaviour {
     } else {
       SceneManager.LoadScene(0);
     }
+
+    // disable boulder spawn if in title screen
+    if (SceneManager.GetActiveScene().name != "Title") {
+      BoulderSpawner.isEnabled = false;
+    } else {
+      BoulderSpawner.isEnabled = true;
+    }
   }
 
   public static void LoadTutorial() {
@@ -95,14 +102,13 @@ public class GameManager : MonoBehaviour {
 
   // respawn the correct prefab of the player
   private IEnumerator RespawnPlayer(GameObject player) {
-    int playerLayer = player.layer;
     player.SetActive(false);
     yield return new WaitForSeconds(RESPAWN_TIMER);
     Destroy(player); // destroy this after
-    if (playerLayer == PLAYER_MASK) {
+    if (player.tag == "Player 1") {
       GameObject newPlayer = Instantiate(instance.playerOnePrefab, instance.playerOneSpawn, Quaternion.identity);
       newPlayer.layer = PLAYER_MASK;
-    } else if (playerLayer == PLAYER_MASK) {
+    } else if (player.tag == "Player 2") {
       GameObject newPlayer = Instantiate(instance.playerTwoPrefab, instance.playerTwoSpawn, Quaternion.identity);
       newPlayer.layer = PLAYER_MASK;
     } else {

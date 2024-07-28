@@ -8,8 +8,9 @@ public abstract class Interactable : MonoBehaviour {
   protected GameObject player;
   public abstract void Interact();
 
+  // TODO: refactor player check
   protected virtual void OnTriggerStay2D(Collider2D collision) {
-    if (collision.CompareTag("Player")) {
+    if (collision.CompareTag("Player 1") || collision.CompareTag("Player 2")) {
       isInteractable = true;
       player = collision.gameObject;
       collision.gameObject.GetComponent<PlayerController>().SetInteractable(this);
@@ -17,7 +18,7 @@ public abstract class Interactable : MonoBehaviour {
   }
 
   protected virtual void OnTriggerExit2D(Collider2D collision) {
-    if (collision.CompareTag("Player")) {
+    if (collision.CompareTag("Player 1") || collision.CompareTag("Player 2")) {
       isInteractable = false;
       player = null;
       collision.gameObject.GetComponent<PlayerController>().SetInteractable(null);

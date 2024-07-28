@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallCatch : MonoBehaviour, IDamageable {
+public class FallCatch : MonoBehaviour {
 
-  private int damage = 200;
-
-  public void DoDamage(Health health) {
-    health.DamagePlayer(damage);
-  }
+  const int DAMAGE = 200;
 
   private void OnTriggerEnter2D(Collider2D other) {
-    if (other.tag != "Player") return;
-    Health playerHealth = other.GetComponent<Health>();
-    DoDamage(playerHealth);
+    Health health = other.GetComponent<Health>();
+    if (health) {
+      health.DamagePlayer(DAMAGE);
+    }
   }
 }

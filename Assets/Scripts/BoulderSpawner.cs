@@ -9,7 +9,10 @@ public class BoulderSpawner : MonoBehaviour {
   const float HEIGHT = 20.0f; // spawn height
   [SerializeField] Boulder boulderPrefab;
 
+  public static bool isEnabled = true;
+
   private void SpawnBoulder() {
+    if (!isEnabled) return;
     if (!boulderPrefab) Debug.LogError("assign boulder in inspector!");
     Vector2 spawnPosition = new(Random.Range(-RANGE, RANGE), HEIGHT);
     Instantiate(boulderPrefab, spawnPosition, Quaternion.identity);

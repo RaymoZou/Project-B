@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IDamageable {
+public class Bullet : MonoBehaviour {
 
   const int DAMAGE = 200;
   const float DESPAWN_TIMER = 10f;
@@ -17,12 +17,8 @@ public class Bullet : MonoBehaviour, IDamageable {
   private void OnCollisionEnter2D(Collision2D collision) {
     Health health = collision.gameObject.GetComponent<Health>();
     if (health) { // collision has health component
-      DoDamage(health);
+      health.DamagePlayer(DAMAGE);
     }
     Destroy(gameObject);
-  }
-
-  public void DoDamage(Health healthObject) {
-    healthObject.DamagePlayer(DAMAGE);
   }
 }
