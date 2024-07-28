@@ -69,6 +69,11 @@ public class GameManager : MonoBehaviour {
     UpdateSpawn(Vector2.zero, PLAYER_MASK);
   }
 
+  // reset the current level
+  public static void ResetLevel() {
+    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+  }
+
   private void Finish() {
     Debug.Log("Level Finished with Time: " + levelTimer);
     isTimerRunning = false;

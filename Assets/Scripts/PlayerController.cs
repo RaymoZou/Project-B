@@ -72,6 +72,10 @@ public class PlayerController : MonoBehaviour {
     if (Input.GetButtonDown("Interact")) {
       if (currInteractable) currInteractable.Interact();
     }
+
+    if (Input.GetButtonDown("Reset")) {
+      GameManager.ResetLevel();
+    }
   }
 
   IEnumerator DashCooldown(float duration) {
