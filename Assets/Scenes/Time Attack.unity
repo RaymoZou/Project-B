@@ -17388,7 +17388,7 @@ GameObject:
   - component: {fileID: 5581872048345844742}
   - component: {fileID: 5581872048345844743}
   - component: {fileID: 5581872048345844760}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Player 1 Respawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17513,7 +17513,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4445956405187058387}
   - component: {fileID: 5210419556695540150}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17583,7 +17583,7 @@ GameObject:
   - component: {fileID: 2153114575870233652}
   - component: {fileID: 7166395814399811020}
   - component: {fileID: 1221505363}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: RespawnFlame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
