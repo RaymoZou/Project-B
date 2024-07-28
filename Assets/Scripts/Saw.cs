@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Saw : MonoBehaviour, IDamageable {
+public class Saw : MonoBehaviour {
 
+  // TODO: update the physics layer of the saw
   [SerializeField] float SPEED = 2f;
   [SerializeField] float RANGE = 3f; // how far from the initial position the saw will move
   [SerializeField] int DAMAGE = 100;
@@ -25,13 +26,10 @@ public class Saw : MonoBehaviour, IDamageable {
   }
 
   private void OnCollisionEnter2D(Collision2D collision) {
-    if (collision.gameObject.CompareTag("Player")) {
-      DoDamage(collision.gameObject.GetComponent<Health>());
+    Health health = collision.gameObject.GetComponent<Health>();
+    if (health) {
+      health.DamagePlayer(DAMAGE);
     }
-  }
-
-  public void DoDamage(Health health) {
-    health.DamagePlayer(DAMAGE);
   }
 
 }
