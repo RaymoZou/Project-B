@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1512843933992586579}
   - component: {fileID: 4238250477478360703}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 5721172884029373644}
   - component: {fileID: 5721172884029373646}
   - component: {fileID: 5721172884029373641}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5721172885452495174}
   - component: {fileID: 5721172885452495169}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
