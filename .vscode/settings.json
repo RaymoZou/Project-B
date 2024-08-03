@@ -1,3 +1,4 @@
 {
-    "dotnet.defaultSolution": "Project-B.sln"
+    "dotnet.defaultSolution": "Project-B.sln",
+    "dotnet.preferCSharpExtension": true
 }

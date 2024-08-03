@@ -84,27 +84,6 @@ public class GameManager : MonoBehaviour {
     }
   }
 
-  // load the next level defined in build settings
-  public static void LoadNextLevel() {
-    int currSceneIndex = SceneManager.GetActiveScene().buildIndex;
-    if (currSceneIndex < SceneManager.sceneCountInBuildSettings - 1) {
-      SceneManager.LoadScene(currSceneIndex + 1);
-    } else {
-      SceneManager.LoadScene(0);
-    }
-
-    // disable boulder spawn if in title screen
-    if (SceneManager.GetActiveScene().name != "Title") {
-      BoulderSpawner.isEnabled = false;
-    } else {
-      BoulderSpawner.isEnabled = true;
-    }
-  }
-
-  public static void LoadTutorial() {
-    SceneManager.LoadScene("Tutorial Level");
-  }
-
   // respawn the correct prefab of the player
   private IEnumerator RespawnPlayer(GameObject player) {
     player.SetActive(false);
@@ -121,12 +100,4 @@ public class GameManager : MonoBehaviour {
     }
   }
 
-  public static void SwitchScreenResolution() {
-    Screen.SetResolution(1920, 1080, FullScreenMode.Windowed, 144);
-  }
-
-  // TODO: this seems really unnecessary
-  public static void QuitGame() {
-    Application.Quit();
-  }
 }

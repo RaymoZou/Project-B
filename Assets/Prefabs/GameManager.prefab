@@ -4836,6 +4836,7 @@ GameObject:
   - component: {fileID: 4501958185044640907}
   - component: {fileID: 4501958185044640906}
   - component: {fileID: 168210171}
+  - component: {fileID: 3290391099353420873}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4886,3 +4887,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boulderPrefab: {fileID: 1601215204311112822, guid: fd8caed56f8c07c40b140a17c0567501, type: 3}
+--- !u!114 &3290391099353420873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501958185044640905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed83dcd23710b5545b566f22801228c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
