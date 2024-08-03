@@ -319,8 +319,9 @@ GameObject:
   - component: {fileID: 405315481}
   - component: {fileID: 405315483}
   - component: {fileID: 405315482}
+  - component: {fileID: 405315484}
   m_Layer: 5
-  m_Name: version
+  m_Name: Version
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -443,6 +444,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 405315480}
   m_CullTransparentMesh: 1
+--- !u!114 &405315484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405315480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc27dcb4f0953f41818c0ad2e99be63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &850292776
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +469,7 @@ GameObject:
   - component: {fileID: 850292778}
   - component: {fileID: 850292777}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: ButtonMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -559,7 +572,7 @@ GameObject:
   - component: {fileID: 1956019368}
   - component: {fileID: 1956019367}
   m_Layer: 5
-  m_Name: Quit
+  m_Name: QUIT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,7 +766,7 @@ GameObject:
   - component: {fileID: 1964509037}
   - component: {fileID: 1964509039}
   m_Layer: 5
-  m_Name: Play
+  m_Name: TIME ATTACK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
