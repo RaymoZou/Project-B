@@ -5,7 +5,7 @@ public class Turret : MonoBehaviour {
   const float SHOOT_OFFSET_X = -0.0339f;
   const float SHOOT_OFFSET_Y = 0.071f;
   Vector2 shootPoint;
-  const float FIRE_RATE = 3f;
+  const float FIRE_RATE = 4f;
   const float FORCE = 50;
 
   private void Awake() {
