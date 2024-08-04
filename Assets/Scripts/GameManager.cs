@@ -53,6 +53,12 @@ public class GameManager : MonoBehaviour {
       levelTimer += Time.deltaTime;
       TimerUpdate?.Invoke(levelTimer);
     }
+
+    // TODO: remove this when in game menu is implemented
+    // otherwise, no other way to go to menu
+    if (Input.GetButtonDown("Title")) {
+      SceneManager.LoadScene("Title");
+    }
   }
 
 
@@ -78,9 +84,9 @@ public class GameManager : MonoBehaviour {
     Debug.Log("Level Finished with Time: " + levelTimer);
     isTimerRunning = false;
 
-    // if in the Tutorial Level scene
-    if (SceneManager.GetActiveScene().name == "Tutorial Level") {
-      SceneManager.LoadScene("Title");
+    // load Time Attack after finishing the Tutorial
+    if (SceneManager.GetActiveScene().name == "Tutorial") {
+      SceneManager.LoadScene("Time Attack");
     }
   }
 
