@@ -1,16 +1,17 @@
 # Project B
-- 2D pixel-style platformer prototype
-
-## Objective & Mechanics
-The objective of the game is to complete the level as fast as possible while dodging deadly obstacle.
+- 2D pixel-style platformer where players race against each other to complete the level the fastest while avoiding deadly obstacles.
 
 ## Controls
-- WASD to move
-- SPACE to jump
-- LEFT SHIFT to dash
+- WASD to Move
+- Space to Jump
+- Left Shift to Dash
+- F to restart the level
+- Esc to return to the title screen
+
+### Controller
+- Left Joystick to Move
+- A to Jump
+- X to Dash
 
 ## Additional Information
-- Unity version 2021.3.2f1
-
-## Version v1.0.0-alpha
-- Features a tutorial level that teaches basic player controls and game mechanics
+- Unity version 2021.3.41f1
